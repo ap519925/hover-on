@@ -1,0 +1,46 @@
+{
+  "name": "hover-on",
+  "version": "1.0.0",
+  "description": "A comprehensive library of navigation and button hover effects with framework-agnostic core and integrations for Drupal, React, Vue, and vanilla JS",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "drupal",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "jest",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "hover-effects",
+    "navigation",
+    "buttons",
+    "animations",
+    "css",
+    "drupal",
+    "ui",
+    "ux",
+    "web-components"
+  ],
+  "author": "Union Web Services, Inc.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unionweb/hover-on"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "rollup": "^3.0.0",
+    "rollup-plugin-postcss": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}
