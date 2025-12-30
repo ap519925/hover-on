@@ -1,5 +1,5 @@
 {
-  "name": "hover-on",
+  "name": "hover-on-lib",
   "version": "1.0.0",
   "type": "module",
   "description": "A comprehensive library of navigation and button hover effects with framework-agnostic core and integrations for Drupal, React, Vue, and vanilla JS",
@@ -33,7 +33,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/unionweb/hover-on"
+    "url": "https://github.com/ap519925/hover-on"
   },
   "peerDependencies": {},
   "devDependencies": {
