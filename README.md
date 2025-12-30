@@ -52,4 +52,4 @@ Icons.basic.glow('.social');
 
 ## 📝 License
 
-MIT © Union Web Services, Inc.
+MIT 
