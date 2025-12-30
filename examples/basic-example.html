@@ -513,7 +513,83 @@
       </div>
     </div>
 
-    <!-- Navigation with Underline Effects -->
+
+    <!-- New Additions Section -->
+    <div class="section">
+      <h2>🆕 Recently Added Effects</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+
+        <!-- Squishy Button -->
+        <div>
+          <h3>1. Squishy Buttons</h3>
+          <p style="margin: 15px 0;">3D pressable buttons (Classic, Neon, Candy)</p>
+          <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
+            <a href="#" class="squishy-classic-target">Classic</a>
+            <a href="#" class="squishy-neon-target">Neon</a>
+            <a href="#" class="squishy-candy-target">Candy</a>
+          </div>
+          <div class="code-block">
+            <span class="code-keyword">new</span> <span class="code-function">SquishyButtonEffect</span>(el, <span
+              class="code-string">'neon'</span>);
+          </div>
+        </div>
+
+        <!-- Complex Border -->
+        <div>
+          <h3>2. Complex Borders</h3>
+          <p style="margin: 15px 0;">Advanced border animations</p>
+          <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
+            <button class="complex-shrink-target">Shrink</button>
+            <button class="complex-bubble-target">Bubble</button>
+          </div>
+          <div class="code-block">
+            <span class="code-keyword">new</span> <span class="code-function">ComplexBorderEffect</span>(el, <span
+              class="code-string">'bubble'</span>, {
+            <span class="code-keyword">color</span>: <span class="code-string">'#e15f41'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Fizzy Button -->
+        <div>
+          <h3>3. Fizzy Button</h3>
+          <p style="margin: 15px 0;">Click to see particle explosion!</p>
+          <div class="fizzy-btn-target">Download</div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">FizzyButtonEffect</span>(el, {
+            <span class="code-keyword">primaryColor</span>: <span class="code-string">'#00d2d3'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Stripe Button -->
+        <div>
+          <h3>4. Stripe Button</h3>
+          <p style="margin: 15px 0;">Infinite scrolling stripes</p>
+          <a class="stripe-btn-target">Stripe Message</a>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">StripeButtonEffect</span>(el, {
+            <span class="code-keyword">stripeHeight</span>: <span class="code-string">'10px'</span>
+            });
+          </div>
+        </div>
+
+        <!-- SVG Border -->
+        <div>
+          <h3>5. SVG Border</h3>
+          <p style="margin: 15px 0;">Animated SVG Stroke</p>
+          <div class="svg-border-target">SVG Border</div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">SvgBorderEffect</span>(el, {
+            <span class="code-keyword">color</span>: <span class="code-string">'#54a0ff'</span>
+            });
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <div class="section">
       <h2>Navigation Links (Underline Effect)</h2>
       <nav>
@@ -645,6 +721,11 @@
       GalleryHoverEffect,
       ClassicEffect,
       CardEffect,
+      SquishyButtonEffect,
+      ComplexBorderEffect,
+      FizzyButtonEffect,
+      StripeButtonEffect,
+      SvgBorderEffect,
       quickInit
     } = HoverOn;
 
@@ -795,6 +876,28 @@
         width: '3px'
       });
     });
+
+
+
+    // --- RECENTLY ADDED EFFECTS ---
+
+    // 1. Squishy Buttons
+    document.querySelector('.squishy-classic-target') && new SquishyButtonEffect('.squishy-classic-target', 'classic');
+    document.querySelector('.squishy-neon-target') && new SquishyButtonEffect('.squishy-neon-target', 'neon');
+    document.querySelector('.squishy-candy-target') && new SquishyButtonEffect('.squishy-candy-target', 'candy');
+
+    // 2. Complex Borders
+    document.querySelector('.complex-shrink-target') && new ComplexBorderEffect('.complex-shrink-target', 'shrink');
+    document.querySelector('.complex-bubble-target') && new ComplexBorderEffect('.complex-bubble-target', 'bubble', { color: '#e15f41' });
+
+    // 3. Fizzy Button
+    document.querySelector('.fizzy-btn-target') && new FizzyButtonEffect('.fizzy-btn-target', { primaryColor: '#00d2d3' });
+
+    // 4. Stripe Button
+    document.querySelector('.stripe-btn-target') && new StripeButtonEffect('.stripe-btn-target', { stripeHeight: '10px' });
+
+    // 5. SVG Border
+    document.querySelector('.svg-border-target') && new SvgBorderEffect('.svg-border-target', { color: '#54a0ff' });
 
 
     // --- BASIC EFFECTS ---
