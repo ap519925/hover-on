@@ -393,7 +393,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
-MIT
+MIT © BlueDrop Solutions LLC
 
 ## 🔗 Links
 
@@ -407,4 +407,4 @@ Check out the `/examples` directory for more detailed usage examples and demos.
 
 ---
 
-
+Made with ❤️ by BlueDrop Solutions LLC
