@@ -1,0 +1,16 @@
+hover_on_lib:
+  remote: https://github.com/ap519925/hover-on
+  version: 1.0.0
+  license:
+    name: MIT
+    url: https://github.com/ap519925/hover-on/blob/main/LICENSE
+  js:
+    js/lib/hover-on.umd.js: { minified: true }
+
+hover_on_init:
+  js:
+    js/hover-on-drupal.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - hover_on/hover_on_lib

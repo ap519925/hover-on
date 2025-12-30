@@ -1,0 +1,4 @@
+administer hover on settings:
+  title: 'Administer Hover On Settings'
+  description: 'Allow users to configure hover effects and rules.'
+  restrict access: true

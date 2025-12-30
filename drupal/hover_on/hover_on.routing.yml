@@ -1,0 +1,7 @@
+hover_on.settings:
+  path: '/admin/config/user-interface/hover-on'
+  defaults:
+    _form: '\Drupal\hover_on\Form\HoverOnSettingsForm'
+    _title: 'Hover On Effects Settings'
+  requirements:
+    _permission: 'administer hover on settings'

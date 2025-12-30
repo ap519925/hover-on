@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Hover On Effects.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ */
+function hover_on_page_attachments(array &$attachments) {
+  $config = \Drupal::config('hover_on.settings');
+  $rules_text = $config->get('rules');
+
+  if (!empty($rules_text)) {
+    $rules = [];
+    $lines = explode("\n", $rules_text);
+    
+    foreach ($lines as $line) {
+      $line = trim($line);
+      if (empty($line)) continue;
+
+      $parts = array_map('trim', explode('|', $line));
+      
+      if (count($parts) >= 2) {
+        $rule = [
+          'selector' => $parts[0],
+          'effect' => $parts[1],
+          'type' => $parts[2] ?? 'slide', // Default type
+          'options' => []
+        ];
+
+        if (!empty($parts[3])) {
+          // Rudimentary color check, assumed to be color if present
+          // In a real module we might want more specific options
+          // But for now, mapping the 4th arg to main 'color' option covers most cases
+          $rule['options']['color'] = $parts[3];
+          $rule['options']['primaryColor'] = $parts[3]; // For effects that use primaryColor
+        }
+
+        $rules[] = $rule;
+      }
+    }
+
+    if (!empty($rules)) {
+      $attachments['#attached']['library'][] = 'hover_on/hover_on_init';
+      $attachments['#attached']['drupalSettings']['hoverOn']['rules'] = $rules;
+    }
+  }
+}

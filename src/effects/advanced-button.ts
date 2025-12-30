@@ -1,384 +1,250 @@
 /**
  * Advanced Button Effects
- * Special button effects including spinner, burst, pressdown, and more
+ * Complex button interactions and animations
  */
 
 export class AdvancedButtonEffect {
   private element: HTMLElement;
   private type: AdvancedButtonType;
-  
+
   constructor(element: HTMLElement | string, type: AdvancedButtonType = 'spinner', options: AdvancedButtonOptions = {}) {
-    this.element = typeof element === 'string' 
-      ? document.querySelector(element) as HTMLElement 
+    this.element = typeof element === 'string'
+      ? document.querySelector(element) as HTMLElement
       : element;
-    
+
     if (!this.element) {
       throw new Error('Element not found');
     }
-    
+
     this.type = type;
     this.init(options);
   }
-  
+
   private init(options: AdvancedButtonOptions): void {
     const {
-      duration = '400ms',
-      primaryColor = '#4ecdc4',
-      secondaryColor = '#ff6b6b',
+      primaryColor = '#00f3ff', // Default neon blue
+      secondaryColor = '#ff00ff',
+      duration = '0.3s',
       glowIntensity = '20px'
     } = options;
-    
-    this.element.classList.add('advanced-button-effect', `advanced-btn-${this.type}`);
-    this.element.style.setProperty('--advanced-duration', duration);
-    this.element.style.setProperty('--advanced-primary', primaryColor);
-    this.element.style.setProperty('--advanced-secondary', secondaryColor);
-    this.element.style.setProperty('--advanced-glow', glowIntensity);
-    
+
+    this.element.classList.add('advanced-btn', `btn-${this.type}`);
+    this.element.style.setProperty('--primary-color', primaryColor);
+    this.element.style.setProperty('--secondary-color', secondaryColor);
+    this.element.style.setProperty('--duration', duration);
+    this.element.style.setProperty('--glow-intensity', glowIntensity);
+
+    // Add specific child elements for certain effects
+    if (this.type === 'spinner') {
+      // Wrap content in a span if not already
+      if (!this.element.querySelector('.btn-content')) {
+        const text = this.element.textContent;
+        this.element.textContent = '';
+        const contentSpan = document.createElement('span');
+        contentSpan.className = 'btn-content';
+        contentSpan.textContent = text;
+        this.element.appendChild(contentSpan);
+
+        const loader = document.createElement('div');
+        loader.className = 'btn-spinner-loader';
+        this.element.appendChild(loader);
+      }
+
+      this.element.addEventListener('click', () => {
+        this.element.classList.add('loading');
+        setTimeout(() => this.element.classList.remove('loading'), 3000); // Demo reset
+      });
+    }
+
     this.injectStyles();
   }
-  
+
   private injectStyles(): void {
     const styleId = 'advanced-button-styles';
     if (document.getElementById(styleId)) return;
-    
+
     const style = document.createElement('style');
     style.id = styleId;
     style.textContent = `
-      .advanced-button-effect {
+      .advanced-btn {
         position: relative;
-        overflow: hidden;
-        transition: all var(--advanced-duration, 400ms) ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        /* overflow: hidden; Removed global overflow hidden as some effects need overflow visible */ 
       }
-      
-      /* Spinner Animation */
-      .advanced-btn-spinner::before,
-      .advanced-btn-spinner::after {
-        content: '';
+
+      /* Spinner */
+      .btn-spinner .btn-content {
+        transition: opacity 0.3s;
+      }
+      .btn-spinner.loading .btn-content {
+        opacity: 0;
+      }
+      .btn-spinner-loader {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 200%;
-        height: 200%;
-        background: conic-gradient(
-          transparent,
-          var(--advanced-primary, #4ecdc4),
-          transparent 30%
-        );
-        transform: translate(-50%, -50%) rotate(0deg);
+        width: 1.5em;
+        height: 1.5em;
+        border: 3px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s linear infinite;
         opacity: 0;
         transition: opacity 0.3s;
       }
-      
-      .advanced-btn-spinner:hover::before,
-      .advanced-btn-spinner:hover::after {
+      .btn-spinner.loading .btn-spinner-loader {
         opacity: 1;
-        animation: spinner-rotate 2s linear infinite;
       }
       
-      .advanced-btn-spinner::after {
-        animation-delay: -1s;
+      @keyframes spin { 100% { transform: rotate(360deg); } }
+
+      /* Burst */
+      .btn-burst {
+        overflow: hidden;
       }
-      
-      @keyframes spinner-rotate {
-        to { transform: translate(-50%, -50%) rotate(360deg); }
-      }
-      
-      /* Button Burst */
-      .advanced-btn-burst::before {
-        content: '';
+      .btn-burst::after {
+        content: "";
         position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
+        top: 50%; left: 50%;
+        width: 0; height: 0;
+        background: rgba(255,255,255,0.2);
         border-radius: 50%;
-        background: var(--advanced-primary, #4ecdc4);
         transform: translate(-50%, -50%);
-        transition: width 0.6s, height 0.6s, opacity 0.6s;
-        opacity: 0;
+        transition: width 0.4s, height 0.4s;
       }
-      
-      .advanced-btn-burst:hover::before {
-        width: 300%;
-        height: 300%;
-        opacity: 0;
+      .btn-burst:active::after {
+        width: 200%; height: 200%;
+        transition: 0s;
       }
-      
-      /* Border Revolve */
-      .advanced-btn-revolve {
-        border: 2px solid transparent;
-        background-image: 
-          linear-gradient(white, white),
-          linear-gradient(45deg, 
-            var(--advanced-primary, #4ecdc4), 
-            var(--advanced-secondary, #ff6b6b)
-          );
-        background-origin: border-box;
-        background-clip: padding-box, border-box;
-      }
-      
-      .advanced-btn-revolve:hover {
-        animation: border-revolve 2s linear infinite;
-      }
-      
-      @keyframes border-revolve {
-        to {
-          background-image: 
-            linear-gradient(white, white),
-            linear-gradient(405deg, 
-              var(--advanced-primary, #4ecdc4), 
-              var(--advanced-secondary, #ff6b6b)
-            );
-        }
-      }
-      
-      /* Pressdown Effect */
-      .advanced-btn-pressdown {
-        box-shadow: 
-          0 4px 0 var(--advanced-primary, #4ecdc4),
-          0 8px 10px rgba(0, 0, 0, 0.2);
-        transform: translateY(0);
-        transition: all 0.1s ease;
-      }
-      
-      .advanced-btn-pressdown:hover {
-        transform: translateY(4px);
-        box-shadow: 
-          0 0 0 var(--advanced-primary, #4ecdc4),
-          0 4px 6px rgba(0, 0, 0, 0.2);
-      }
-      
-      .advanced-btn-pressdown:active {
-        transform: translateY(8px);
-        box-shadow: 
-          0 0 0 var(--advanced-primary, #4ecdc4),
-          0 0 0 rgba(0, 0, 0, 0.2);
-      }
-      
-      /* Offset Border */
-      .advanced-btn-offset {
-        box-shadow: 
-          0 0 0 2px var(--advanced-primary, #4ecdc4);
-      }
-      
-      .advanced-btn-offset::before {
-        content: '';
-        position: absolute;
-        top: -6px;
-        left: -6px;
-        right: -6px;
-        bottom: -6px;
-        border: 2px solid var(--advanced-secondary, #ff6b6b);
-        opacity: 0;
-        transition: opacity var(--advanced-duration, 400ms) ease;
-      }
-      
-      .advanced-btn-offset:hover::before {
-        opacity: 1;
-      }
-      
-      /* Neon Glow */
-      .advanced-btn-neon {
-        border: 2px solid var(--advanced-primary, #4ecdc4);
-        color: var(--advanced-primary, #4ecdc4);
+
+      /* Neon */
+      .btn-neon {
         background: transparent;
-        text-shadow: 0 0 10px var(--advanced-primary, #4ecdc4);
+        border: 2px solid var(--primary-color, #0ff);
+        color: var(--primary-color, #0ff);
+        font-family: monospace;
+        letter-spacing: 2px;
+        box-shadow: 0 0 10px var(--primary-color, #0ff), inset 0 0 10px var(--primary-color, #0ff);
       }
-      
-      .advanced-btn-neon:hover {
-        background: var(--advanced-primary, #4ecdc4);
-        color: white;
-        box-shadow: 
-          0 0 var(--advanced-glow, 20px) var(--advanced-primary, #4ecdc4),
-          inset 0 0 var(--advanced-glow, 20px) var(--advanced-primary, #4ecdc4);
-        text-shadow: none;
+      .btn-neon:hover {
+        background: var(--primary-color, #0ff);
+        color: #000;
+        box-shadow: 0 0 20px var(--primary-color, #0ff), inset 0 0 20px var(--primary-color, #0ff);
       }
-      
-      /* Warp/Liquid Effect */
-      .advanced-btn-warp:hover {
-        animation: warp 0.8s ease-in-out;
+
+      /* Float Up (Magnetic) */
+      .btn-float-up {
+        transform: translateY(0);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       }
-      
-      @keyframes warp {
-        0%, 100% { border-radius: 8px; }
-        25% { border-radius: 50% 8px 50% 8px; }
-        50% { border-radius: 8px 50% 8px 50%; }
-        75% { border-radius: 50% 8px 50% 8px; }
+      .btn-float-up:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 25px rgba(0,0,0,0.2);
       }
-      
-      /* Split Sides Effect */
-      .advanced-btn-split-sides::before,
-      .advanced-btn-split-sides::after {
-        content: '';
+
+      /* 1. Track Expand (btn-2) */
+      .btn-track-expand {
+        letter-spacing: 0;
+        background: transparent;
+        color: inherit;
+        overflow: visible;
+      }
+      .btn-track-expand:hover {
+        letter-spacing: 5px;
+      }
+      .btn-track-expand::before,
+      .btn-track-expand::after {
+        content: "";
+        display: block;
+        height: 1px;
+        width: 0;
+        background: currentColor;
         position: absolute;
-        top: 0;
-        width: 2px;
-        height: 100%;
-        background: var(--advanced-primary, #4ecdc4);
-        transition: all var(--advanced-duration, 400ms) ease;
-      }
-      
-      .advanced-btn-split-sides::before {
-        left: 0;
-      }
-      
-      .advanced-btn-split-sides::after {
-        right: 0;
-      }
-      
-      .advanced-btn-split-sides:hover::before {
-        left: -10px;
-      }
-      
-      .advanced-btn-split-sides:hover::after {
-        right: -10px;
-      }
-      
-      /* Inside Out Effect */
-      .advanced-btn-inside-out::before {
-        content: '';
-        position: absolute;
-        top: 0;
+        transition: width 0.3s ease-in-out;
         left: 50%;
-        width: 0;
-        height: 100%;
-        background: var(--advanced-primary, #4ecdc4);
         transform: translateX(-50%);
-        transition: width var(--advanced-duration, 400ms) ease;
-        z-index: -1;
       }
+      .btn-track-expand::before { top: 0; }
+      .btn-track-expand::after { bottom: 0; }
       
-      .advanced-btn-inside-out:hover::before {
+      .btn-track-expand:hover::before,
+      .btn-track-expand:hover::after {
         width: 100%;
       }
-      
-      /* Gradient Animated */
-      .advanced-btn-gradient-animated {
-        background: linear-gradient(
-          45deg,
-          var(--advanced-primary, #4ecdc4),
-          var(--advanced-secondary, #ff6b6b),
-          var(--advanced-primary, #4ecdc4)
-        );
-        background-size: 200% 200%;
-        animation: gradient-shift 3s ease infinite;
+
+      /* 2. Retro 3D (btn-3) */
+      .btn-retro-3d {
+        background: #efefef;
+        border: 1px solid #ccc;
+        box-shadow: 0px 2px 0 #999, 2px 4px 6px #ddd;
+        transition: all 150ms linear;
+        color: #333;
       }
-      
-      .advanced-btn-gradient-animated:hover {
-        animation-duration: 1s;
+      .btn-retro-3d:hover {
+        background: #e5e5e5;
+        border: 1px solid rgba(0,0,0,0.05);
+        box-shadow: 1px 1px 2px rgba(255,255,255,0.2);
+        transform: translateY(2px);
       }
-      
-      @keyframes gradient-shift {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-      }
-      
-      /* Border Wipe */
-      .advanced-btn-border-wipe {
-        border: 2px solid transparent;
-        background-clip: padding-box;
-      }
-      
-      .advanced-btn-border-wipe::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border: 2px solid var(--advanced-primary, #4ecdc4);
-        clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-        transition: clip-path var(--advanced-duration, 600ms) ease;
-      }
-      
-      .advanced-btn-border-wipe:hover::before {
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-      }
-      
-      /* Float Up */
-      .advanced-btn-float-up {
-        transition: transform var(--advanced-duration, 400ms) ease;
-      }
-      
-      .advanced-btn-float-up:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-      }
-      
-      /* Strikethrough */
-      .advanced-btn-strikethrough {
+
+      /* 3. Shine Slide (btn-4) */
+      .btn-shine-slide {
+        border: 1px solid currentColor;
+        overflow: hidden;
         position: relative;
+        background: transparent;
       }
-      
-      .advanced-btn-strikethrough::after {
-        content: '';
+      .btn-shine-slide::after {
+        background: #fff;
+        content: "";
+        height: 155px;
+        left: -75px;
+        opacity: .2;
         position: absolute;
-        left: 0;
-        top: 50%;
-        width: 0;
-        height: 2px;
-        background: var(--advanced-primary, #4ecdc4);
-        transition: width var(--advanced-duration, 400ms) ease;
+        top: -50px;
+        transform: rotate(35deg);
+        transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+        width: 50px;
+        z-index: 1;
       }
-      
-      .advanced-btn-strikethrough:hover::after {
-        width: 100%;
+      .btn-shine-slide:hover::after {
+        left: 120%;
       }
-      
-      /* 3D Flip */
-      .advanced-btn-3d-flip {
-        transform-style: preserve-3d;
-        perspective: 1000px;
+
+      /* 4. Outline Pulse (btn-5) */
+      .btn-outline-pulse {
+        border: 0 solid;
+        box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
+        outline: 2px solid;
+        outline-color: rgba(0, 0, 0, .5);
+        outline-offset: 0px;
+        text-shadow: none;
+        transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
       }
-      
-      .advanced-btn-3d-flip:hover {
-        transform: rotateY(180deg);
-      }
-      
-      /* Popup */
-      .advanced-btn-popup:hover {
-        animation: popup 0.5s ease;
-      }
-      
-      @keyframes popup {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.15); }
+      .btn-outline-pulse:hover {
+        border: 1px solid;
+        box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
+        outline-color: rgba(255, 255, 255, 0);
+        outline-offset: 15px;
+        text-shadow: 1px 1px 2px #427388;
       }
     `;
     document.head.appendChild(style);
   }
-  
-  public changeType(type: AdvancedButtonType): void {
-    this.element.classList.remove(`advanced-btn-${this.type}`);
-    this.type = type;
-    this.element.classList.add(`advanced-btn-${this.type}`);
-  }
-  
-  public destroy(): void {
-    this.element.classList.remove('advanced-button-effect', `advanced-btn-${this.type}`);
-  }
 }
 
-export type AdvancedButtonType = 
-  | 'spinner'
-  | 'burst'
-  | 'revolve'
-  | 'pressdown'
-  | 'offset'
-  | 'neon'
-  | 'warp'
-  | 'split-sides'
-  | 'inside-out'
-  | 'gradient-animated'
-  | 'border-wipe'
-  | 'float-up'
-  | 'strikethrough'
-  | '3d-flip'
-  | 'popup';
+export type AdvancedButtonType = 'spinner' | 'burst' | 'revolve' | 'pressdown' | 'offset' | 'neon' | 'warp' | 'split-sides' | 'inside-out' | 'gradient-animated' | 'border-wipe' | 'float-up' | 'strikethrough' | '3d-flip' | 'popup' | 'track-expand' | 'retro-3d' | 'shine-slide' | 'outline-pulse';
 
 export interface AdvancedButtonOptions {
-  duration?: string;
   primaryColor?: string;
   secondaryColor?: string;
+  duration?: string;
   glowIntensity?: string;
 }

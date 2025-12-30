@@ -1,0 +1,6 @@
+name: 'Hover On Effects'
+type: module
+description: 'Integrates the Hover On library to provide advanced navigation and button hover effects configurable via UI.'
+core_version_requirement: ^10 || ^11
+package: 'User Interface'
+configure: hover_on.settings

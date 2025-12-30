@@ -1,6 +1,6 @@
 {
   "name": "hover-on-lib",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "type": "module",
   "description": "A comprehensive library of navigation and button hover effects with framework-agnostic core and integrations for Drupal, React, Vue, and vanilla JS",
   "main": "dist/index.js",
@@ -35,7 +35,6 @@
     "type": "git",
     "url": "https://github.com/ap519925/hover-on"
   },
-  "peerDependencies": {},
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-node-resolve": "^15.0.0",
@@ -43,5 +42,8 @@
     "rollup": "^3.0.0",
     "rollup-plugin-postcss": "^4.0.0",
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "hover-on-lib": "^1.0.0"
   }
 }
