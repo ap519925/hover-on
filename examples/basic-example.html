@@ -207,12 +207,29 @@
     .drupal-step {
       margin-bottom: 20px;
     }
+
+    /* Text Effects */
+    .text-effects {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .text-effect {
+      font-size: 2.5em;
+      font-weight: 800;
+      cursor: default;
+      padding: 10px 20px;
+    }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>🎨 hover-on-lib Examples</h1>
+    <h1>🎨 hover-on-lib Examples - Not all effects are shown here</h1>
 
     <!-- Gallery Showcase -->
     <div class="section">
@@ -540,13 +557,14 @@
           <h3>2. Complex Borders</h3>
           <p style="margin: 15px 0;">Advanced border animations</p>
           <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
-            <button class="complex-shrink-target">Shrink</button>
-            <button class="complex-bubble-target">Bubble</button>
+            <button class="complex-shrink-target" style="background: transparent; border: none;">Shrink</button>
+            <button class="complex-bubble-target" style="background: transparent; border: none;">Bubble</button>
           </div>
           <div class="code-block">
             <span class="code-keyword">new</span> <span class="code-function">ComplexBorderEffect</span>(el, <span
               class="code-string">'bubble'</span>, {
-            <span class="code-keyword">color</span>: <span class="code-string">'#e15f41'</span>
+            <span class="code-keyword">color</span>: <span class="code-string">'#3498db'</span>,
+            <span class="code-keyword">hoverColor</span>: <span class="code-string">'#fff'</span>
             });
           </div>
         </div>
@@ -579,10 +597,160 @@
         <div>
           <h3>5. SVG Border</h3>
           <p style="margin: 15px 0;">Animated SVG Stroke</p>
-          <div class="svg-border-target">SVG Border</div>
+          <div style="text-align: center; padding: 20px; background: #2c3e50; border-radius: 10px;">
+            <div class="svg-border-target">SVG Border</div>
+          </div>
           <div class="code-block" style="margin-top: 20px;">
             <span class="code-keyword">new</span> <span class="code-function">SvgBorderEffect</span>(el, {
-            <span class="code-keyword">color</span>: <span class="code-string">'#54a0ff'</span>
+            <span class="code-keyword">color</span>: <span class="code-string">'#54a0ff'</span>,
+            <span class="code-keyword">text</span>: <span class="code-string">'SVG Border'</span>
+            });
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- More Awesome Effects Section -->
+    <div class="section">
+      <h2>🌟 More Awesome Effects</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+
+        <!-- Gooey Button -->
+        <div>
+          <h3>1. Morphing Goo</h3>
+          <p style="margin: 15px 0;">Liquid morphing effect with SVG filters</p>
+          <div style="display: flex; gap: 15px; flex-direction: column; align-items: center;">
+            <a href="#" class="gooey-blobs-target"
+              style="text-decoration: none; border: 3px solid #ff3366; padding: 1.2em 3.4em; font-weight: 700;">Bubble
+              Up</a>
+            <a href="#" class="gooey-diagonal-target"
+              style="text-decoration: none; padding: 1.2em 3.4em; font-weight: 700;">Stretch</a>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">GooeyButtonEffect</span>(el, <span
+              class="code-string">'blobs'</span>, {
+            <span class="code-keyword">color</span>: <span class="code-string">'#ff3366'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Liquid Fill -->
+        <div>
+          <h3>2. Wave Rising</h3>
+          <p style="margin: 15px 0;">Staggered wave animation fills upward</p>
+          <div style="text-align: center;">
+            <a class="liquid-fill-target" style="font-weight: 700; font-size: 1.1em;">Get Started</a>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">LiquidFillEffect</span>(el, {
+            <span class="code-keyword">color</span>: <span class="code-string">'#00d4ff'</span>,
+            <span class="code-keyword">textColor</span>: <span class="code-string">'#1a1a1a'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Rainbow Effect -->
+        <div>
+          <h3>3. Color Shift</h3>
+          <p style="margin: 15px 0;">Animated gradient variations</p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+            <button class="rainbow-smooth-target"
+              style="padding: 10px 20px; font-weight: 600; color: #fff;">Gradient</button>
+            <button class="rainbow-spectrum-target" style="padding: 10px 20px; font-weight: 600; color: #fff;">Full
+              Color</button>
+            <button class="rainbow-warm-target"
+              style="padding: 10px 20px; font-weight: 600; color: #fff;">Sunset</button>
+            <button class="rainbow-blocks-target"
+              style="padding: 10px 20px; font-weight: 600; color: #fff;">Stripes</button>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">RainbowEffect</span>(el, <span
+              class="code-string">'spectrum'</span>, {
+            <span class="code-keyword">speed</span>: <span class="code-string">'3s'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Draw Border -->
+        <div>
+          <h3>4. Sketch Border</h3>
+          <p style="margin: 15px 0;">Hand-drawn frame animation</p>
+          <div style="text-align: center; padding: 20px;">
+            <button class="draw-border-target"
+              style="padding: 1em 2.5em; font-weight: 700; letter-spacing: 1px; color: #9b59b6; background: transparent;">EXPLORE</button>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">DrawBorderEffect</span>(el, {
+            <span class="code-keyword">color</span>: <span class="code-string">'#9b59b6'</span>,
+            <span class="code-keyword">hoverColor</span>: <span class="code-string">'#3498db'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Flip Button -->
+        <div>
+          <h3>5. Card Flip</h3>
+          <p style="margin: 15px 0;">3D rotation reveals hidden message</p>
+          <div style="text-align: center; padding: 20px;">
+            <button class="flip-button-target"
+              style="background: transparent; color: #1e293b; border: none;">Subscribe</button>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">FlipButtonEffect</span>(el, {
+            <span class="code-keyword">frontText</span>: <span class="code-string">'Subscribe'</span>,
+            <span class="code-keyword">backText</span>: <span class="code-string">'Join Us!'</span>,
+            <span class="code-keyword">textColor</span>: <span class="code-string">'#fff'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Mask Reveal -->
+        <div>
+          <h3>6. Paint Splash</h3>
+          <p style="margin: 15px 0;">Animated sprite-based ink reveal</p>
+          <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <button class="mask-nature-target" style="background: transparent; color: #333;">Organic</button>
+            <button class="mask-urban-target" style="background: transparent; color: #333;">Graffiti</button>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">MaskRevealEffect</span>(el, <span
+              class="code-string">'nature'</span>, {
+            <span class="code-keyword">color</span>: <span class="code-string">'#e74c3c'</span>,
+            <span class="code-keyword">textColor</span>: <span class="code-string">'#fff'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Angled Sweep -->
+        <div>
+          <h3>7. Diagonal Slide</h3>
+          <p style="margin: 15px 0;">Tilted fill animation with scale</p>
+          <div style="text-align: center; padding: 20px;">
+            <button class="angled-sweep-target"
+              style="font-size: 1.3em; font-weight: 300; background: transparent; color: #2c3e50;">Shop Now</button>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">AngledSweepEffect</span>(el, {
+            <span class="code-keyword">primaryColor</span>: <span class="code-string">'#2c3e50'</span>,
+            <span class="code-keyword">secondaryColor</span>: <span class="code-string">'#e67e22'</span>,
+            <span class="code-keyword">hoverTextColor</span>: <span class="code-string">'#1a1a1a'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Glow Hover -->
+        <div>
+          <h3>8. Neon Pulse</h3>
+          <p style="margin: 15px 0;">Shifting rainbow border animation</p>
+          <div style="text-align: center; padding: 20px; background: #1a1a1a; border-radius: 10px;">
+            <button class="glow-hover-target"
+              style="font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Launch</button>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">GlowHoverEffect</span>(el, {
+            <span class="code-keyword">bg</span>: <span class="code-string">'#0a0a0a'</span>
             });
           </div>
         </div>
@@ -726,6 +894,14 @@
       FizzyButtonEffect,
       StripeButtonEffect,
       SvgBorderEffect,
+      GooeyButtonEffect,
+      LiquidFillEffect,
+      RainbowEffect,
+      DrawBorderEffect,
+      FlipButtonEffect,
+      MaskRevealEffect,
+      AngledSweepEffect,
+      GlowHoverEffect,
       quickInit
     } = HoverOn;
 
@@ -887,8 +1063,14 @@
     document.querySelector('.squishy-candy-target') && new SquishyButtonEffect('.squishy-candy-target', 'candy');
 
     // 2. Complex Borders
-    document.querySelector('.complex-shrink-target') && new ComplexBorderEffect('.complex-shrink-target', 'shrink');
-    document.querySelector('.complex-bubble-target') && new ComplexBorderEffect('.complex-bubble-target', 'bubble', { color: '#e15f41' });
+    document.querySelector('.complex-shrink-target') && new ComplexBorderEffect('.complex-shrink-target', 'shrink', {
+      color: '#9b59b6',
+      hoverColor: '#fff'
+    });
+    document.querySelector('.complex-bubble-target') && new ComplexBorderEffect('.complex-bubble-target', 'bubble', {
+      color: '#3498db',
+      hoverColor: '#fff'
+    });
 
     // 3. Fizzy Button
     document.querySelector('.fizzy-btn-target') && new FizzyButtonEffect('.fizzy-btn-target', { primaryColor: '#00d2d3' });
@@ -897,7 +1079,84 @@
     document.querySelector('.stripe-btn-target') && new StripeButtonEffect('.stripe-btn-target', { stripeHeight: '10px' });
 
     // 5. SVG Border
-    document.querySelector('.svg-border-target') && new SvgBorderEffect('.svg-border-target', { color: '#54a0ff' });
+    document.querySelector('.svg-border-target') && new SvgBorderEffect('.svg-border-target', {
+      color: '#54a0ff',
+      text: 'SVG Border',
+      thickness: '3',
+      duration: '0.8s'
+    });
+
+
+    // --- MORE AWESOME EFFECTS ---
+
+    // 1. Morphing Goo - customized with vibrant pink
+    document.querySelector('.gooey-blobs-target') && new GooeyButtonEffect('.gooey-blobs-target', 'blobs', {
+      color: '#ff3366',
+      hoverColor: '#fff'
+    });
+    document.querySelector('.gooey-diagonal-target') && new GooeyButtonEffect('.gooey-diagonal-target', 'diagonal', {
+      color: '#8b5cf6',
+      hoverColor: '#1a1a1a'
+    });
+
+    // 2. Wave Rising - cyan liquid with dark text on hover
+    document.querySelector('.liquid-fill-target') && new LiquidFillEffect('.liquid-fill-target', {
+      color: '#00d4ff',
+      textColor: '#1a1a1a'
+    });
+
+    // 3. Color Shift - faster animation speed
+    document.querySelector('.rainbow-smooth-target') && new RainbowEffect('.rainbow-smooth-target', 'smooth', { speed: '3s' });
+    document.querySelector('.rainbow-spectrum-target') && new RainbowEffect('.rainbow-spectrum-target', 'spectrum', { speed: '3s' });
+    document.querySelector('.rainbow-warm-target') && new RainbowEffect('.rainbow-warm-target', 'warm', { speed: '3s' });
+    document.querySelector('.rainbow-blocks-target') && new RainbowEffect('.rainbow-blocks-target', 'blocks', { speed: '2.5s' });
+
+    // 4. Sketch Border - purple to blue transition
+    document.querySelector('.draw-border-target') && new DrawBorderEffect('.draw-border-target', {
+      color: '#9b59b6',
+      hoverColor: '#3498db',
+      width: '3px',
+      duration: '0.25s'
+    });
+
+    // 5. Card Flip - custom subscribe text with proper contrast
+    document.querySelector('.flip-button-target') && new FlipButtonEffect('.flip-button-target', {
+      frontText: 'Subscribe',
+      backText: 'Join Us!',
+      frontColor: '#1e293b',
+      backColor: '#f59e0b',
+      textColor: '#fff',
+      duration: '0.6s'
+    });
+
+    // 6. Paint Splash - red and orange variants
+    document.querySelector('.mask-nature-target') && new MaskRevealEffect('.mask-nature-target', 'nature', {
+      color: '#e74c3c',
+      textColor: '#fff',
+      duration: '0.8s'
+    });
+    document.querySelector('.mask-urban-target') && new MaskRevealEffect('.mask-urban-target', 'urban', {
+      color: '#f97316',
+      textColor: '#fff',
+      duration: '0.8s'
+    });
+
+    // 7. Diagonal Slide - dark slate to orange with better contrast
+    document.querySelector('.angled-sweep-target') && new AngledSweepEffect('.angled-sweep-target', {
+      primaryColor: '#2c3e50',
+      secondaryColor: '#e67e22',
+      textColor: '#2c3e50',
+      hoverTextColor: '#1a1a1a',
+      angle: '12deg',
+      duration: '0.25s'
+    });
+
+    // 8. Neon Pulse - darker background
+    document.querySelector('.glow-hover-target') && new GlowHoverEffect('.glow-hover-target', {
+      bg: '#0a0a0a',
+      textColor: '#fff',
+      borderRadius: '8px'
+    });
 
 
     // --- BASIC EFFECTS ---
@@ -940,19 +1199,28 @@
     });
 
     // Text effects
-    new TextEffect(document.querySelector('.text-gradient'), 'gradient', {
-      primaryColor: '#667eea',
-      secondaryColor: '#764ba2'
-    });
+    const textGradient = document.querySelector('.text-gradient');
+    if (textGradient) {
+      new TextEffect(textGradient, 'gradient', {
+        primaryColor: '#667eea',
+        secondaryColor: '#764ba2'
+      });
+    }
 
-    new TextEffect(document.querySelector('.text-neon'), 'neon', {
-      primaryColor: '#4ecdc4'
-    });
+    const textNeon = document.querySelector('.text-neon');
+    if (textNeon) {
+      new TextEffect(textNeon, 'neon', {
+        primaryColor: '#4ecdc4'
+      });
+    }
 
-    new TextEffect(document.querySelector('.text-shadow'), 'shadow', {
-      primaryColor: '#667eea',
-      secondaryColor: '#764ba2'
-    });
+    const textShadow = document.querySelector('.text-shadow');
+    if (textShadow) {
+      new TextEffect(textShadow, 'shadow', {
+        primaryColor: '#667eea',
+        secondaryColor: '#764ba2'
+      });
+    }
 
     console.log('✨ hover-on-lib loaded successfully!');
   </script>

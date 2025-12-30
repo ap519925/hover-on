@@ -1,8 +1,8 @@
 {
   "name": "hover-on-lib",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "type": "module",
-  "description": "A comprehensive library of navigation and button hover effects with framework-agnostic core and integrations for Drupal, React, Vue, and vanilla JS",
+  "description": "A comprehensive library of 30+ navigation and button hover effects including gooey morphing, liquid fills, rainbow gradients, paint splash reveals, and more. Framework-agnostic with Drupal integration.",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -27,9 +27,17 @@
     "drupal",
     "ui",
     "ux",
-    "web-components"
+    "web-components",
+    "gooey-effects",
+    "liquid-fill",
+    "rainbow-gradient",
+    "svg-animations",
+    "3d-effects",
+    "particle-effects",
+    "morphing",
+    "mask-reveal"
   ],
-  "author": "Union Web Services, Inc.",
+  "author": "Anthony Phillips (BlueDrop Solutions LLC)",
   "license": "MIT",
   "repository": {
     "type": "git",

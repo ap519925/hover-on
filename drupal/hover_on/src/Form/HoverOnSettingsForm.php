@@ -37,8 +37,31 @@ class HoverOnSettingsForm extends ConfigFormBase {
         <li><code>nav a | underline | slide | #4ecdc4</code></li>
         <li><code>.button | background | left | #ff6b6b</code></li>
         <li><code>.card | transform3d | lift |</code> (leave color blank for default)</li>
+        <li><code>.btn | rainbow | spectrum |</code> (animated rainbow gradient)</li>
+        <li><code>.cta | gooey | blobs | #ff3366</code> (morphing goo effect)</li>
+        <li><code>.menu-item | liquid | | #00d4ff</code> (wave rising effect)</li>
       </ul>
-      <p>Available Effects: <em>underline, background, border, transform3d, icon, text, modern, particle</em></p>',
+      <h3>Core Effects:</h3>
+      <p><em>underline, background, border, transform3d, icon, text, modern, particle, card, classic, advanced, gallery, imageoverlay</em></p>
+
+      <h3>Advanced Effects:</h3>
+      <p><em>squishy, complexborder, angled, rainbow, mask, drawborder, flip, fizzy, svgborder, stripe, gooey, liquid, glow, borderfill, centerfill</em></p>
+
+      <details>
+        <summary><strong>Effect Types Reference</strong></summary>
+        <ul>
+          <li><strong>underline:</strong> slide, center, fade</li>
+          <li><strong>background:</strong> left, right, top, bottom</li>
+          <li><strong>border:</strong> corners, pulse, draw, glow</li>
+          <li><strong>transform3d:</strong> lift, tilt, tilt-follow</li>
+          <li><strong>text:</strong> gradient, wave, glitch, neon, shadow</li>
+          <li><strong>rainbow:</strong> smooth, spectrum, warm, blocks</li>
+          <li><strong>gooey:</strong> blobs, diagonal</li>
+          <li><strong>mask:</strong> nature, urban</li>
+          <li><strong>squishy:</strong> classic, neon, candy</li>
+          <li><strong>complexborder:</strong> shrink, bubble</li>
+        </ul>
+      </details>',
     ];
 
     $form['rules'] = [

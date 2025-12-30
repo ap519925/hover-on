@@ -9,6 +9,8 @@ import { BorderEffect } from './effects/border';
 import { Transform3DEffect } from './effects/transform-3d';
 import { ParticleEffect } from './effects/particle';
 import { GalleryHoverEffect } from './effects/gallery-hover';
+import { UnderlineEffect } from './effects/underline';
+import { BackgroundSweepEffect } from './effects/background-sweep';
 
 // New Effects
 import { SquishyButtonEffect } from './effects/squishy-button';
@@ -42,6 +44,84 @@ const quickInit = () => {
   console.log('hover-on library loaded');
 };
 
+// Helper for Drupal integration - init effects from config rules
+const initEffects = (rules: EffectRule[]) => {
+  rules.forEach((rule) => {
+    const elements = document.querySelectorAll(rule.selector);
+    if (!elements.length) return;
+
+    const effectClass = getEffectClass(rule.effect);
+    if (!effectClass) {
+      console.warn(`Unknown effect: ${rule.effect}`);
+      return;
+    }
+
+    elements.forEach((el) => {
+      try {
+        new effectClass(el as HTMLElement, rule.type || '', rule.options || {});
+      } catch (e) {
+        console.error(`Error initializing effect ${rule.effect} on`, el, e);
+      }
+    });
+  });
+};
+
+// Map effect names to classes
+const getEffectClass = (effectName: string): any => {
+  const effectMap: { [key: string]: any } = {
+    'underline': UnderlineEffect,
+    'background': BackgroundSweepEffect,
+    'border': BorderEffect,
+    'transform3d': Transform3DEffect,
+    'icon': IconEffect,
+    'text': TextEffect,
+    'modern': ModernCSSEffect,
+    'particle': ParticleEffect,
+    'card': CardEffect,
+    'classic': ClassicEffect,
+    'advanced': AdvancedButtonEffect,
+    'gallery': GalleryHoverEffect,
+    'imageoverlay': ImageOverlayEffect,
+
+    // New effects
+    'squishy': SquishyButtonEffect,
+    'complexborder': ComplexBorderEffect,
+    'angled': AngledSweepEffect,
+    'arrow': ArrowSlideEffect,
+    'rainbow': RainbowEffect,
+    'mask': MaskRevealEffect,
+    'drawborder': DrawBorderEffect,
+    'flip': FlipButtonEffect,
+    'boxshadow': BoxShadowEffect,
+    'fizzy': FizzyButtonEffect,
+    'svgborder': SvgBorderEffect,
+    'stripe': StripeButtonEffect,
+    'gooey': GooeyButtonEffect,
+    'fancyborder': FancyBorderEffect,
+    'svgoval': SvgOvalEffect,
+    'blend': BlendModeEffect,
+    'slidegrow': SlideGrowEffect,
+    'glow': GlowHoverEffect,
+    'borderfill': BorderFillEffect,
+    'transition': TransitionButtonEffect,
+    'centerfill': CenterFillEffect,
+    'bubblearrow': BubbleArrowEffect,
+    'stylish': StylishButtonEffect,
+    'cssbutton': CssButtonEffect,
+    'liquid': LiquidFillEffect,
+  };
+
+  return effectMap[effectName.toLowerCase()];
+};
+
+// Type for Drupal effect rules
+interface EffectRule {
+  selector: string;
+  effect: string;
+  type?: string;
+  options?: any;
+}
+
 // Export individual classes for tree-shaking
 export {
   ModernCSSEffect,
@@ -55,6 +135,8 @@ export {
   Transform3DEffect,
   ParticleEffect,
   GalleryHoverEffect,
+  UnderlineEffect,
+  BackgroundSweepEffect,
 
   // New Exports
   SquishyButtonEffect,
@@ -83,7 +165,8 @@ export {
   CssButtonEffect,
   LiquidFillEffect,
 
-  quickInit
+  quickInit,
+  initEffects
 };
 
 // Default export
@@ -100,6 +183,8 @@ export default {
   Transform3DEffect,
   ParticleEffect,
   GalleryHoverEffect,
+  UnderlineEffect,
+  BackgroundSweepEffect,
 
   SquishyButtonEffect,
   ComplexBorderEffect,
@@ -125,5 +210,7 @@ export default {
   BubbleArrowEffect,
   StylishButtonEffect,
   CssButtonEffect,
-  LiquidFillEffect
+  LiquidFillEffect,
+
+  initEffects
 };
