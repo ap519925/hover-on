@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hover-on-lib - Basic Example</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 50px;
+      font-size: 3em;
+    }
+
+    .section {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .section h2 {
+      color: #333;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #4ecdc4;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #333;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 600;
+      padding: 10px 0;
+    }
+
+    /* Buttons */
+    .button-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 15px 40px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #4ecdc4;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    /* Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 15px;
+      padding: 30px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+
+    .card p {
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    /* Images */
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .image-wrapper {
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .image-wrapper img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Icons */
+    .icon-group {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      font-size: 40px;
+    }
+
+    .icon {
+      color: #667eea;
+      cursor: pointer;
+    }
+
+    /* Text Effects */
+    .text-effects {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .text-effect {
+      font-size: 32px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 hover-on-lib Examples</h1>
+
+    <!-- Navigation with Underline Effects -->
+    <div class="section">
+      <h2>Navigation Links (Underline Effect)</h2>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+
+    <!-- Buttons with Background Sweep -->
+    <div class="section">
+      <h2>Buttons (Background Sweep Effect)</h2>
+      <div class="button-group">
+        <button class="btn">Get Started</button>
+        <button class="btn">Learn More</button>
+        <button class="btn">Contact Us</button>
+      </div>
+    </div>
+
+    <!-- Cards with 3D Transform -->
+    <div class="section">
+      <h2>Cards (3D Lift Effect)</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>🚀 Fast</h3>
+          <p>Lightning-fast hover effects with zero dependencies</p>
+        </div>
+        <div class="card">
+          <h3>🎨 Beautiful</h3>
+          <p>Stunning visual effects that wow your users</p>
+        </div>
+        <div class="card">
+          <h3>⚡ Easy</h3>
+          <p>Simple API that works with any framework</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Images with Overlay Effects -->
+    <div class="section">
+      <h2>Images (Overlay Effect)</h2>
+      <div class="image-grid">
+        <div class="image-wrapper">
+          <img src="https://picsum.photos/300/200?random=1" alt="Image 1">
+        </div>
+        <div class="image-wrapper">
+          <img src="https://picsum.photos/300/200?random=2" alt="Image 2">
+        </div>
+        <div class="image-wrapper">
+          <img src="https://picsum.photos/300/200?random=3" alt="Image 3">
+        </div>
+      </div>
+    </div>
+
+    <!-- Icons -->
+    <div class="section">
+      <h2>Icons (Rotate Effect)</h2>
+      <div class="icon-group">
+        <span class="icon">⭐</span>
+        <span class="icon">❤️</span>
+        <span class="icon">🎯</span>
+        <span class="icon">🔥</span>
+        <span class="icon">✨</span>
+      </div>
+    </div>
+
+    <!-- Text Effects -->
+    <div class="section">
+      <h2>Text Effects</h2>
+      <div class="text-effects">
+        <div class="text-effect text-gradient">Gradient Text</div>
+        <div class="text-effect text-neon">Neon Glow</div>
+        <div class="text-effect text-shadow">Shadow Lift</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Import from CDN -->
+  <script type="module">
+    // In a real project, you would install via npm:
+    // npm install hover-on-lib
+    // import { UnderlineEffect, BackgroundSweepEffect, etc. } from 'hover-on-lib';
+
+    // For this demo, we'll use the local build
+    // Replace '../dist/index.esm.js' with 'hover-on-lib' in your project
+    import { 
+      UnderlineEffect, 
+      BackgroundSweepEffect, 
+      Transform3DEffect,
+      ImageOverlayEffect,
+      IconEffect,
+      TextEffect,
+      quickInit
+    } from '../dist/index.esm.js';
+
+    // Navigation links - Underline effect
+    document.querySelectorAll('nav a').forEach(link => {
+      new UnderlineEffect(link, 'slide', {
+        color: '#4ecdc4',
+        thickness: '3px'
+      });
+    });
+
+    // Buttons - Background sweep effect
+    document.querySelectorAll('.btn').forEach(btn => {
+      new BackgroundSweepEffect(btn, 'left', {
+        color: '#ff6b6b'
+      });
+    });
+
+    // Cards - 3D lift effect
+    document.querySelectorAll('.card').forEach(card => {
+      new Transform3DEffect(card, 'lift', {
+        translateZ: '30px'
+      });
+    });
+
+    // Images - Overlay effect
+    document.querySelectorAll('.image-wrapper').forEach(wrapper => {
+      new ImageOverlayEffect(wrapper, 'fade', {
+        overlayColor: 'rgba(102, 126, 234, 0.7)',
+        zoomScale: '1.15'
+      });
+    });
+
+    // Icons - Rotate effect
+    document.querySelectorAll('.icon').forEach(icon => {
+      new IconEffect(icon, 'rotate', {
+        hoverColor: '#ff6b6b'
+      });
+    });
+
+    // Text effects
+    new TextEffect(document.querySelector('.text-gradient'), 'gradient', {
+      primaryColor: '#667eea',
+      secondaryColor: '#764ba2'
+    });
+
+    new TextEffect(document.querySelector('.text-neon'), 'neon', {
+      primaryColor: '#4ecdc4'
+    });
+
+    new TextEffect(document.querySelector('.text-shadow'), 'shadow', {
+      primaryColor: '#667eea',
+      secondaryColor: '#764ba2'
+    });
+
+    console.log('✨ hover-on-lib loaded successfully!');
+  </script>
+</body>
+</html>
