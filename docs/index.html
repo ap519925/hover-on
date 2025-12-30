@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hover-on-lib - Basic Example</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 50px;
+      font-size: 3em;
+    }
+
+    .section {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .section h2 {
+      color: #333;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #4ecdc4;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #333;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 600;
+      padding: 10px 0;
+    }
+
+    /* Buttons */
+    .button-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 15px 40px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #4ecdc4;
+      color: white;
+      transition: all 0.3s ease;
+      position: relative;
+      /* Needed for z-index stacking */
+      z-index: 1;
+    }
+
+    .btn:hover {
+      color: #222 !important;
+      /* Force dark text color on hover for contrast */
+      text-shadow: none;
+    }
+
+    /* Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 15px;
+      padding: 30px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+
+    .card p {
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    /* Images */
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .image-wrapper {
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .image-wrapper img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Code Snippets */
+    .code-block {
+      background: #2d2d2d;
+      color: #ccc;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 14px;
+      margin-top: 15px;
+      border-left: 4px solid #4ecdc4;
+    }
+
+    .code-comment {
+      color: #6a9955;
+    }
+
+    .code-keyword {
+      color: #cc99cd;
+    }
+
+    .code-string {
+      color: #7ec699;
+    }
+
+    .code-function {
+      color: #f08d49;
+    }
+
+    /* Particles */
+    .particle-target {
+      position: relative;
+      padding: 20px 40px;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 18px;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    /* Glassmorphism */
+    .glass-card {
+      padding: 40px;
+      border-radius: 20px;
+      color: white;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* Drupal Guide */
+    .drupal-guide {
+      background: #fdfdfd;
+      border-left: 5px solid #0678be;
+      /* Drupal Blue */
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .drupal-guide h3 {
+      color: #0678be;
+      margin-top: 20px;
+    }
+
+    .drupal-step {
+      margin-bottom: 20px;
+    }
+
+    /* Text Effects */
+    .text-effects {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .text-effect {
+      font-size: 2.5em;
+      font-weight: 800;
+      cursor: default;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>🎨 hover-on-lib Examples - Not all effects are shown here</h1>
+
+    <!-- Gallery Showcase -->
+    <div class="section">
+      <h2>📸 Gallery Hover Showcase</h2>
+      <p style="margin-bottom: 20px">Hover over images to see the overlay effect.</p>
+
+      <div class="gallery-container">
+        <div class="gallery-hover-row">
+          <div class="gallery-hover-col">
+            <div class="gallery-hover-item">
+              <img src="https://picsum.photos/600/400?random=10" alt="Gallery 1">
+            </div>
+          </div>
+          <div class="gallery-hover-col">
+            <div class="gallery-hover-item">
+              <img src="https://picsum.photos/600/400?random=11" alt="Gallery 2">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <span class="code-keyword">new</span> <span class="code-function">GalleryHoverEffect</span>(<span
+          class="code-string">'.gallery-container'</span>, {
+        <span class="code-keyword">hoverTextContent</span>: <span class="code-string">'DISCOVER'</span>,
+        <span class="code-keyword">blendMode</span>: <span class="code-string">'difference'</span>
+        });
+      </div>
+    </div>
+
+    <!-- Micro-Interactions -->
+    <div class="section">
+      <h2>⚡ Micro-Interactions</h2>
+      <div style="display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; align-items: center;">
+
+        <!-- Corner Border -->
+        <div style="text-align: center;">
+          <button class="btn corner-btn"
+            style="background: transparent; color: #333; border: 1px solid #ddd;">Corners</button>
+          <div class="code-block" style="margin-top: 10px; text-align: left; max-width: 200px;">
+            <span class="code-function">BorderEffect</span>(el, <span class="code-string">'corners'</span>)
+          </div>
+        </div>
+
+        <!-- Pulse -->
+        <div style="text-align: center;">
+          <button class="btn pulse-btn"
+            style="background: white; color: #4ecdc4; border: 2px solid #4ecdc4;">Pulse</button>
+          <div class="code-block" style="margin-top: 10px; text-align: left; max-width: 200px;">
+            <span class="code-function">BorderEffect</span>(el, <span class="code-string">'pulse'</span>)
+          </div>
+        </div>
+
+        <!-- Classic Rotate -->
+        <div style="text-align: center;">
+          <div class="rotate-box"
+            style="width: 80px; height: 80px; background: #a55eea; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer;">
+            Rotate
+          </div>
+          <div class="code-block" style="margin-top: 10px; text-align: left; max-width: 200px;">
+            <span class="code-function">ClassicEffect</span>(el, <span class="code-string">'rotate'</span>)
+          </div>
+        </div>
+
+        <!-- Glow Card -->
+        <div style="text-align: center;">
+          <div class="card glow-card"
+            style="width: 200px; padding: 20px; text-align: center; background: #2d3436; color: white;">
+            <h4>Neon Card</h4>
+          </div>
+          <div class="code-block" style="margin-top: 10px; text-align: left; max-width: 200px;">
+            <span class="code-function">CardEffect</span>(el, <span class="code-string">'border-glow'</span>)
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Hot Trends Section -->
+    <div class="section">
+      <h2>🔥 Hot Trends</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;">
+
+        <!-- Gradient Border Card -->
+        <div style="text-align: center;">
+          <h3>Animated Border</h3>
+          <div class="gradient-border-card"
+            style="padding: 2px; border-radius: 10px; background: #333; display: inline-block; cursor: pointer;">
+            <div style="background: #222; padding: 20px 40px; border-radius: 8px; color: white;">
+              Hover Me
+            </div>
+          </div>
+          <div class="code-block" style="margin-top: 15px;">
+            <span class="code-function">ModernCSSEffect</span>(el, <span class="code-string">'gradient-border'</span>)
+          </div>
+        </div>
+
+        <!-- Spinner Button -->
+        <div style="text-align: center;">
+          <h3>Loading Button</h3>
+          <div style="padding: 10px;">
+            <button class="btn spinner-btn" style="position: relative;">Submit</button>
+          </div>
+          <div class="code-block" style="margin-top: 15px;">
+            <span class="code-function">AdvancedButtonEffect</span>(el, <span class="code-string">'spinner'</span>)
+          </div>
+        </div>
+
+        <!-- Wavy Text -->
+        <div style="text-align: center;">
+          <h3>Wavy Text</h3>
+          <div style="padding: 10px;">
+            <h2 class="wavy-text" style="font-size: 3em; cursor: default;">HOVER</h2>
+          </div>
+          <div class="code-block" style="margin-top: 15px;">
+            <span class="code-function">TextEffect</span>(el, <span class="code-string">'wave'</span>)
+          </div>
+        </div>
+
+        <!-- Notification Shake -->
+        <div style="text-align: center;">
+          <h3>Notification</h3>
+          <div style="font-size: 3em; cursor: pointer; position: relative; display: inline-block;" class="shake-icon">
+            🔔
+            <span
+              style="position: absolute; top: 0; right: -5px; width: 15px; height: 15px; background: red; border-radius: 50%;"></span>
+          </div>
+          <div class="code-block" style="margin-top: 15px;">
+            <span class="code-function">IconEffect</span>(el, <span class="code-string">'shake'</span>)
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Advanced Effects Section -->
+    <div class="section">
+      <h2>✨ Cool Advanced Effects</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+
+        <!-- Particle Effect -->
+        <div>
+          <h3>1. Particle Burst (Confetti)</h3>
+          <p style="margin: 15px 0;">Click or hover to see particles!</p>
+          <div style="text-align: center; padding: 20px;">
+            <button class="particle-target">Hover Me!</button>
+          </div>
+          <div class="code-block">
+            <span class="code-keyword">new</span> <span class="code-function">ParticleEffect</span>(element, <span
+              class="code-string">'confetti'</span>, {
+            <span class="code-keyword">particleCount</span>: 30,
+            <span class="code-keyword">colors</span>: [<span class="code-string">'#4ecdc4'</span>, <span
+              class="code-string">'#ff6b6b'</span>]
+            });
+          </div>
+        </div>
+
+        <!-- Glassmorphism -->
+        <div>
+          <h3>2. Modern Glassmorphism</h3>
+          <p style="margin: 15px 0;">Frosty glass effect with blur</p>
+          <div
+            style="background: url('https://picsum.photos/400/300') no-repeat center/cover; padding: 40px; border-radius: 20px;">
+            <div class="glass-card">
+              <h3>Glass Card</h3>
+              <p>Hover to increase blur & opacity</p>
+            </div>
+          </div>
+          <div class="code-block">
+            <span class="code-keyword">new</span> <span class="code-function">ModernCSSEffect</span>(element, <span
+              class="code-string">'glass'</span>, {
+            <span class="code-keyword">blurAmount</span>: <span class="code-string">'15px'</span>,
+            <span class="code-keyword">primaryColor</span>: <span class="code-string">'rgba(255,255,255,0.2)'</span>
+            });
+          </div>
+        </div>
+
+        <!-- 3D Tilt Follow -->
+        <div>
+          <h3>3. 3D Tilt Follow</h3>
+          <p style="margin: 15px 0;">Card follows your mouse cursor</p>
+          <div class="card tilt-card"
+            style="height: 200px; display: flex; align-items: center; justify-content: center; background: linear-gradient(45deg, #FF9A9E 0%, #FECFEF 100%);">
+            <h3 style="text-shadow: 0 2px 4px rgba(0,0,0,0.2);">Mouse Over Me</h3>
+          </div>
+          <div class="code-block">
+            <span class="code-keyword">new</span> <span class="code-function">Transform3DEffect</span>(element, <span
+              class="code-string">'tilt-follow'</span>, {
+            <span class="code-keyword">perspective</span>: <span class="code-string">'1000px'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Magnetic Button -->
+        <div>
+          <h3>4. Magnetic Button</h3>
+          <p style="margin: 15px 0;">Attracts to your cursor</p>
+          <div style="padding: 40px; text-align: center;">
+            <button class="btn magnetic-btn"
+              style="background: #6c5ce7; box-shadow: 0 10px 20px rgba(108, 92, 231, 0.4);">Magnetic</button>
+          </div>
+          <div class="code-block">
+            <span class="code-keyword">new</span> <span class="code-function">AdvancedButtonEffect</span>(element, <span
+              class="code-string">'float-up'</span>, {
+            <span class="code-keyword">duration</span>: <span class="code-string">'300ms'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Neon Cyberpunk -->
+        <div>
+          <h3>5. Neon Cyberpunk</h3>
+          <p style="margin: 15px 0;">Futuristic glowing borders</p>
+          <div style="padding: 20px; background: #111; border-radius: 10px; text-align: center;">
+            <button class="btn neon-btn"
+              style="background: transparent; color: #00f3ff; border: 2px solid #00f3ff; font-family: 'Courier New', monospace; letter-spacing: 2px;">CYBERPUNK</button>
+          </div>
+          <div class="code-block">
+            <span class="code-keyword">new</span> <span class="code-function">AdvancedButtonEffect</span>(element, <span
+              class="code-string">'neon'</span>, {
+            <span class="code-keyword">primaryColor</span>: <span class="code-string">'#00f3ff'</span>,
+            <span class="code-keyword">glowIntensity</span>: <span class="code-string">'30px'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Glitch Text -->
+        <div>
+          <h3>6. Glitch Text Reveal</h3>
+          <p style="margin: 15px 0;">Digital glitch distortion</p>
+          <div style="padding: 40px; background: #000; color: #fff; text-align: center; border-radius: 10px;">
+            <div class="text-glitch-target" style="font-size: 40px; font-weight: 900; letter-spacing: 5px;"
+              data-text="GLITCH">GLITCH</div>
+          </div>
+          <div class="code-block">
+            <span class="code-keyword">new</span> <span class="code-function">TextEffect</span>(element, <span
+              class="code-string">'glitch'</span>, {
+            <span class="code-keyword">primaryColor</span>: <span class="code-string">'#0ff'</span>,
+            <span class="code-keyword">secondaryColor</span>: <span class="code-string">'#f0f'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Spotlight Effect -->
+        <div>
+          <h3>7. Spotlight Reveal</h3>
+          <p style="margin: 15px 0;">Flashlight style reveal</p>
+          <div class="spotlight-card"
+            style="background: #222; padding: 40px; border-radius: 15px; text-align: center; overflow: hidden; position: relative;">
+            <h3 style="position: relative; z-index: 2; color: #555;">Hover Me</h3>
+            <div class="spotlight-overlay"
+              style="position: absolute; top:0; left:0; right:0; bottom:0; background: radial-gradient(circle at center, transparent 30%, #000 70%); opacity: 0; transition: opacity 0.3s;">
+            </div>
+          </div>
+          <div class="code-block">
+            <span class="code-keyword">new</span> <span class="code-function">ImageOverlayEffect</span>(element, <span
+              class="code-string">'circle'</span>, {
+            <span class="code-keyword">overlayColor</span>: <span class="code-string">'rgba(255, 255, 255, 0.1)'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Split Image -->
+        <div>
+          <h3>8. Split Image</h3>
+          <p style="margin: 15px 0;">Image splits into fragments</p>
+          <div class="split-image-target"
+            style="width: 100%; height: 200px; overflow: hidden; border-radius: 10px; cursor: pointer;">
+            <img src="https://picsum.photos/400/300?grayscale" alt="Split"
+              style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div class="code-block">
+            <span class="code-keyword">new</span> <span class="code-function">ImageOverlayEffect</span>(element, <span
+              class="code-string">'slide-left'</span>, {
+            <span class="code-keyword">duration</span>: <span class="code-string">'500ms'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Elastic Border -->
+        <div>
+          <h3>9. Elastic Border</h3>
+          <p style="margin: 15px 0;">Border expands elastically</p>
+          <div style="padding: 30px; text-align: center;">
+            <button class="elastic-btn"
+              style="background: white; color: #333; border: 2px solid #ddd; padding: 15px 30px; border-radius: 5px; font-weight: bold; cursor: pointer;">ELASTIC</button>
+          </div>
+          <div class="code-block">
+            <span class="code-keyword">new</span> <span class="code-function">BorderEffect</span>(element, <span
+              class="code-string">'draw'</span>, {
+            <span class="code-keyword">color</span>: <span class="code-string">'#6c5ce7'</span>,
+            <span class="code-keyword">duration</span>: <span class="code-string">'400ms'</span>
+            });
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- New Additions Section -->
+    <div class="section">
+      <h2>🆕 Recently Added Effects</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+
+        <!-- Squishy Button -->
+        <div>
+          <h3>1. Squishy Buttons</h3>
+          <p style="margin: 15px 0;">3D pressable buttons (Classic, Neon, Candy)</p>
+          <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
+            <a href="#" class="squishy-classic-target">Classic</a>
+            <a href="#" class="squishy-neon-target">Neon</a>
+            <a href="#" class="squishy-candy-target">Candy</a>
+          </div>
+          <div class="code-block">
+            <span class="code-keyword">new</span> <span class="code-function">SquishyButtonEffect</span>(el, <span
+              class="code-string">'neon'</span>);
+          </div>
+        </div>
+
+        <!-- Complex Border -->
+        <div>
+          <h3>2. Complex Borders</h3>
+          <p style="margin: 15px 0;">Advanced border animations</p>
+          <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
+            <button class="complex-shrink-target" style="background: transparent; border: none;">Shrink</button>
+            <button class="complex-bubble-target" style="background: transparent; border: none;">Bubble</button>
+          </div>
+          <div class="code-block">
+            <span class="code-keyword">new</span> <span class="code-function">ComplexBorderEffect</span>(el, <span
+              class="code-string">'bubble'</span>, {
+            <span class="code-keyword">color</span>: <span class="code-string">'#3498db'</span>,
+            <span class="code-keyword">hoverColor</span>: <span class="code-string">'#fff'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Fizzy Button -->
+        <div>
+          <h3>3. Fizzy Button</h3>
+          <p style="margin: 15px 0;">Click to see particle explosion!</p>
+          <div class="fizzy-btn-target">Download</div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">FizzyButtonEffect</span>(el, {
+            <span class="code-keyword">primaryColor</span>: <span class="code-string">'#00d2d3'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Stripe Button -->
+        <div>
+          <h3>4. Stripe Button</h3>
+          <p style="margin: 15px 0;">Infinite scrolling stripes</p>
+          <a class="stripe-btn-target">Stripe Message</a>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">StripeButtonEffect</span>(el, {
+            <span class="code-keyword">stripeHeight</span>: <span class="code-string">'10px'</span>
+            });
+          </div>
+        </div>
+
+        <!-- SVG Border -->
+        <div>
+          <h3>5. SVG Border</h3>
+          <p style="margin: 15px 0;">Animated SVG Stroke</p>
+          <div style="text-align: center; padding: 20px; background: #2c3e50; border-radius: 10px;">
+            <div class="svg-border-target">SVG Border</div>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">SvgBorderEffect</span>(el, {
+            <span class="code-keyword">color</span>: <span class="code-string">'#54a0ff'</span>,
+            <span class="code-keyword">text</span>: <span class="code-string">'SVG Border'</span>
+            });
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- More Awesome Effects Section -->
+    <div class="section">
+      <h2>🌟 More Awesome Effects</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+
+        <!-- Gooey Button -->
+        <div>
+          <h3>1. Morphing Goo</h3>
+          <p style="margin: 15px 0;">Liquid morphing effect with SVG filters</p>
+          <div style="display: flex; gap: 15px; flex-direction: column; align-items: center;">
+            <a href="#" class="gooey-blobs-target"
+              style="text-decoration: none; border: 3px solid #ff3366; padding: 1.2em 3.4em; font-weight: 700;">Bubble
+              Up</a>
+            <a href="#" class="gooey-diagonal-target"
+              style="text-decoration: none; padding: 1.2em 3.4em; font-weight: 700;">Stretch</a>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">GooeyButtonEffect</span>(el, <span
+              class="code-string">'blobs'</span>, {
+            <span class="code-keyword">color</span>: <span class="code-string">'#ff3366'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Liquid Fill -->
+        <div>
+          <h3>2. Wave Rising</h3>
+          <p style="margin: 15px 0;">Staggered wave animation fills upward</p>
+          <div style="text-align: center;">
+            <a class="liquid-fill-target" style="font-weight: 700; font-size: 1.1em;">Get Started</a>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">LiquidFillEffect</span>(el, {
+            <span class="code-keyword">color</span>: <span class="code-string">'#00d4ff'</span>,
+            <span class="code-keyword">textColor</span>: <span class="code-string">'#1a1a1a'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Rainbow Effect -->
+        <div>
+          <h3>3. Color Shift</h3>
+          <p style="margin: 15px 0;">Animated gradient variations</p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+            <button class="rainbow-smooth-target"
+              style="padding: 10px 20px; font-weight: 600; color: #fff;">Gradient</button>
+            <button class="rainbow-spectrum-target" style="padding: 10px 20px; font-weight: 600; color: #fff;">Full
+              Color</button>
+            <button class="rainbow-warm-target"
+              style="padding: 10px 20px; font-weight: 600; color: #fff;">Sunset</button>
+            <button class="rainbow-blocks-target"
+              style="padding: 10px 20px; font-weight: 600; color: #fff;">Stripes</button>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">RainbowEffect</span>(el, <span
+              class="code-string">'spectrum'</span>, {
+            <span class="code-keyword">speed</span>: <span class="code-string">'3s'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Draw Border -->
+        <div>
+          <h3>4. Sketch Border</h3>
+          <p style="margin: 15px 0;">Hand-drawn frame animation</p>
+          <div style="text-align: center; padding: 20px;">
+            <button class="draw-border-target"
+              style="padding: 1em 2.5em; font-weight: 700; letter-spacing: 1px; color: #9b59b6; background: transparent;">EXPLORE</button>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">DrawBorderEffect</span>(el, {
+            <span class="code-keyword">color</span>: <span class="code-string">'#9b59b6'</span>,
+            <span class="code-keyword">hoverColor</span>: <span class="code-string">'#3498db'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Flip Button -->
+        <div>
+          <h3>5. Card Flip</h3>
+          <p style="margin: 15px 0;">3D rotation reveals hidden message</p>
+          <div style="text-align: center; padding: 20px;">
+            <button class="flip-button-target"
+              style="background: transparent; color: #1e293b; border: none;">Subscribe</button>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">FlipButtonEffect</span>(el, {
+            <span class="code-keyword">frontText</span>: <span class="code-string">'Subscribe'</span>,
+            <span class="code-keyword">backText</span>: <span class="code-string">'Join Us!'</span>,
+            <span class="code-keyword">textColor</span>: <span class="code-string">'#fff'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Mask Reveal -->
+        <div>
+          <h3>6. Paint Splash</h3>
+          <p style="margin: 15px 0;">Animated sprite-based ink reveal</p>
+          <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <button class="mask-nature-target" style="background: transparent; color: #333;">Organic</button>
+            <button class="mask-urban-target" style="background: transparent; color: #333;">Graffiti</button>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">MaskRevealEffect</span>(el, <span
+              class="code-string">'nature'</span>, {
+            <span class="code-keyword">color</span>: <span class="code-string">'#e74c3c'</span>,
+            <span class="code-keyword">textColor</span>: <span class="code-string">'#fff'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Angled Sweep -->
+        <div>
+          <h3>7. Diagonal Slide</h3>
+          <p style="margin: 15px 0;">Tilted fill animation with scale</p>
+          <div style="text-align: center; padding: 20px;">
+            <button class="angled-sweep-target"
+              style="font-size: 1.3em; font-weight: 300; background: transparent; color: #2c3e50;">Shop Now</button>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">AngledSweepEffect</span>(el, {
+            <span class="code-keyword">primaryColor</span>: <span class="code-string">'#2c3e50'</span>,
+            <span class="code-keyword">secondaryColor</span>: <span class="code-string">'#e67e22'</span>,
+            <span class="code-keyword">hoverTextColor</span>: <span class="code-string">'#1a1a1a'</span>
+            });
+          </div>
+        </div>
+
+        <!-- Glow Hover -->
+        <div>
+          <h3>8. Neon Pulse</h3>
+          <p style="margin: 15px 0;">Shifting rainbow border animation</p>
+          <div style="text-align: center; padding: 20px; background: #1a1a1a; border-radius: 10px;">
+            <button class="glow-hover-target"
+              style="font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Launch</button>
+          </div>
+          <div class="code-block" style="margin-top: 20px;">
+            <span class="code-keyword">new</span> <span class="code-function">GlowHoverEffect</span>(el, {
+            <span class="code-keyword">bg</span>: <span class="code-string">'#0a0a0a'</span>
+            });
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Navigation Links (Underline Effect)</h2>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="code-block">
+        <span class="code-keyword">new</span> <span class="code-function">UnderlineEffect</span>(link, <span
+          class="code-string">'slide'</span>, {
+        <span class="code-keyword">color</span>: <span class="code-string">'#4ecdc4'</span>,
+        <span class="code-keyword">thickness</span>: <span class="code-string">'3px'</span>
+        });
+      </div>
+    </div>
+
+    <!-- Buttons with Background Sweep -->
+    <div class="section">
+      <h2>Buttons (Background Sweep Effect)</h2>
+      <div class="button-group">
+        <button class="btn">Get Started</button>
+        <button class="btn">Learn More</button>
+        <button class="btn">Contact Us</button>
+      </div>
+    </div>
+
+    <!-- Cards with 3D Transform -->
+    <div class="section">
+      <h2>Cards (3D Lift Effect)</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>🚀 Fast</h3>
+          <p>Lightning-fast hover effects with zero dependencies</p>
+        </div>
+        <div class="card">
+          <h3>🎨 Beautiful</h3>
+          <p>Stunning visual effects that wow your users</p>
+        </div>
+        <div class="card">
+          <h3>⚡ Easy</h3>
+          <p>Simple API that works with any framework</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Images with Overlay Effects -->
+    <div class="section">
+      <h2>Images (Overlay Effect)</h2>
+      <div class="image-grid">
+        <div class="image-wrapper">
+          <img src="https://picsum.photos/300/200?random=1" alt="Image 1">
+        </div>
+        <div class="image-wrapper">
+          <img src="https://picsum.photos/300/200?random=2" alt="Image 2">
+        </div>
+        <div class="image-wrapper">
+          <img src="https://picsum.photos/300/200?random=3" alt="Image 3">
+        </div>
+      </div>
+    </div>
+
+    <!-- Text Effects -->
+    <div class="section">
+      <h2>Text Effects</h2>
+      <div class="text-effects">
+        <div class="text-effect text-gradient">Gradient Text</div>
+        <div class="text-effect text-neon">Neon Glow</div>
+        <div class="text-effect text-shadow">Shadow Lift</div>
+      </div>
+    </div>
+
+    <!-- Drupal Integration Guide -->
+    <div class="section drupal-guide">
+      <h2 style="color: #0678be; border-bottom-color: #0678be;">Drupal Integration Guide</h2>
+      <p style="margin-bottom: 20px;">Easily integrate hover-on-lib into your Drupal site using the dedicated module (no
+        coding required).</p>
+
+      <div class="drupal-step">
+        <h3>Step 1: Install the Module</h3>
+        <p>Copy the <code>hover_on</code> directory to your site's modules folder:</p>
+        <div class="code-block">web/modules/custom/hover_on/</div>
+        <p style="margin-top: 10px;">Then enable the module:</p>
+        <div class="code-block">drush en hover_on</div>
+      </div>
+
+      <div class="drupal-step">
+        <h3>Step 2: Configure Effects</h3>
+        <p>Go to <strong>Configuration &gt; User Interface &gt; Hover On Effects Settings</strong> in your Drupal admin
+          toolbar.</p>
+        <p>Add your rules using the simple format: <code>Selector | Effect | Type | Color</code></p>
+      </div>
+
+      <div class="drupal-step">
+        <h3>Example Configuration</h3>
+        <p>Paste this into the settings page to see immediate results:</p>
+        <div class="code-block">
+          <span class="code-comment"># Apply underline to main menu links</span>
+          nav.primary-nav a | underline | slide | #4ecdc4
+
+          <span class="code-comment"># Apply sweep effect to all buttons</span>
+          .button, .btn | background | left | #ff6b6b
+
+          <span class="code-comment"># Apply 3D lift to teaser cards</span>
+          .node--view-mode-teaser | transform3d | lift
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Import using UMD build (Works locally without server) -->
+  <script src="./dist/hover-on.umd.js"></script>
+
+  <script>
+    // Access effects from the global HoverOn object
+    const {
+      UnderlineEffect,
+      BackgroundSweepEffect,
+      Transform3DEffect,
+      ImageOverlayEffect,
+      IconEffect,
+      TextEffect,
+      ParticleEffect,
+      ModernCSSEffect,
+      AdvancedButtonEffect,
+      BorderEffect,
+      GalleryHoverEffect,
+      ClassicEffect,
+      CardEffect,
+      SquishyButtonEffect,
+      ComplexBorderEffect,
+      FizzyButtonEffect,
+      StripeButtonEffect,
+      SvgBorderEffect,
+      GooeyButtonEffect,
+      LiquidFillEffect,
+      RainbowEffect,
+      DrawBorderEffect,
+      FlipButtonEffect,
+      MaskRevealEffect,
+      AngledSweepEffect,
+      GlowHoverEffect,
+      quickInit
+    } = HoverOn;
+
+    // --- GALLERY HOVER EFFECT ---
+    // (This creates a text overlay that appears when hovering images)
+    new GalleryHoverEffect('.gallery-container', {
+      hoverTextContent: 'DISCOVER',
+      fontSize: '6vw',
+      blendMode: 'difference'
+    });
+
+    // --- MICRO INTERACTIONS ---
+
+    // 10. Corner Border Button
+    document.querySelectorAll('.corner-btn').forEach(btn => {
+      new BorderEffect(btn, 'corners', {
+        color: '#ff6b6b',
+        width: '2px',
+        duration: '300ms'
+      });
+    });
+
+    // 11. Pulse Button
+    document.querySelectorAll('.pulse-btn').forEach(btn => {
+      new BorderEffect(btn, 'pulse', {
+        color: '#4ecdc4',
+        duration: '1.5s'
+      });
+    });
+
+    // 12. Classic Rotate
+    document.querySelectorAll('.rotate-box').forEach(box => {
+      new ClassicEffect(box, 'rotate', {
+        rotation: '15deg',
+        duration: '300ms'
+      });
+    });
+
+    // 13. Card Border Glow
+    document.querySelectorAll('.glow-card').forEach(card => {
+      new CardEffect(card, 'border-glow', {
+        color: '#a55eea',
+        blur: '15px'
+      });
+    });
+
+    // --- HOT TRENDS ---
+
+    // 14. Animated Gradient Border
+    document.querySelectorAll('.gradient-border-card').forEach(card => {
+      new ModernCSSEffect(card, 'gradient-border', {
+        primaryColor: '#4ecdc4',
+        secondaryColor: '#ff6b6b'
+      });
+    });
+
+    // 15. Spinner Button
+    document.querySelectorAll('.spinner-btn').forEach(btn => {
+      new AdvancedButtonEffect(btn, 'spinner', {
+        primaryColor: '#ffffff'
+      });
+    });
+
+    // 16. Wavy Text
+    document.querySelectorAll('.wavy-text').forEach(text => {
+      new TextEffect(text, 'wave', {
+        color: '#6c5ce7'
+      });
+    });
+
+    // 17. Notification Shake
+    document.querySelectorAll('.shake-icon').forEach(icon => {
+      new IconEffect(icon, 'shake', {
+        color: '#ff6b6b'
+      });
+    });
+
+    // --- NEW COOL EFFECTS ---
+    // ... existing ...
+
+    // 1. Particle Effect
+    document.querySelectorAll('.particle-target').forEach(btn => {
+      new ParticleEffect(btn, 'burst', { // Changed 'confetti' to 'burst' as per library definition
+        particleCount: 30,
+        colors: ['#4ecdc4', '#ff6b6b', '#ffd93d']
+      });
+    });
+
+    // 2. Glassmorphism
+    document.querySelectorAll('.glass-card').forEach(card => {
+      new ModernCSSEffect(card, 'glass', {
+        blurAmount: '10px',
+        primaryColor: 'rgba(255, 255, 255, 0.1)'
+      });
+    });
+
+    // 3. 3D Tilt Follow
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      new Transform3DEffect(card, 'tilt-follow', {
+        perspective: '1000px'
+      });
+    });
+
+    // 4. Magnetic Button
+    document.querySelectorAll('.magnetic-btn').forEach(btn => {
+      new AdvancedButtonEffect(btn, 'float-up', {
+        duration: '300ms'
+      });
+    });
+
+    // 5. Neon Cyberpunk
+    document.querySelectorAll('.neon-btn').forEach(btn => {
+      new AdvancedButtonEffect(btn, 'neon', {
+        primaryColor: '#00f3ff',
+        glowIntensity: '30px'
+      });
+    });
+
+    // 6. Glitch Text
+    document.querySelectorAll('.text-glitch-target').forEach(text => {
+      new TextEffect(text, 'glitch', {
+        primaryColor: '#0ff',
+        secondaryColor: '#f0f'
+      });
+    });
+
+    // 7. Spotlight (using ImageOverlay 'circle' as proxy or BorderEffect)
+    // Actually let's use BorderEffect 'glow' for a simple effect or implement custom logic
+    // But sticking to library features:
+    document.querySelectorAll('.spotlight-card').forEach(card => {
+      new BorderEffect(card, 'glow', {
+        color: 'rgba(255,255,255,0.5)',
+        duration: '500ms'
+      });
+    });
+
+    // 8. Split Image
+    document.querySelectorAll('.split-image-target').forEach(img => {
+      new ImageOverlayEffect(img, 'slide-left', {
+        overlayColor: 'rgba(108, 92, 231, 0.8)'
+      });
+    });
+
+    // 9. Elastic Border
+    document.querySelectorAll('.elastic-btn').forEach(btn => {
+      new BorderEffect(btn, 'draw', {
+        color: '#6c5ce7',
+        width: '3px'
+      });
+    });
+
+
+
+    // --- RECENTLY ADDED EFFECTS ---
+
+    // 1. Squishy Buttons
+    document.querySelector('.squishy-classic-target') && new SquishyButtonEffect('.squishy-classic-target', 'classic');
+    document.querySelector('.squishy-neon-target') && new SquishyButtonEffect('.squishy-neon-target', 'neon');
+    document.querySelector('.squishy-candy-target') && new SquishyButtonEffect('.squishy-candy-target', 'candy');
+
+    // 2. Complex Borders
+    document.querySelector('.complex-shrink-target') && new ComplexBorderEffect('.complex-shrink-target', 'shrink', {
+      color: '#9b59b6',
+      hoverColor: '#fff'
+    });
+    document.querySelector('.complex-bubble-target') && new ComplexBorderEffect('.complex-bubble-target', 'bubble', {
+      color: '#3498db',
+      hoverColor: '#fff'
+    });
+
+    // 3. Fizzy Button
+    document.querySelector('.fizzy-btn-target') && new FizzyButtonEffect('.fizzy-btn-target', { primaryColor: '#00d2d3' });
+
+    // 4. Stripe Button
+    document.querySelector('.stripe-btn-target') && new StripeButtonEffect('.stripe-btn-target', { stripeHeight: '10px' });
+
+    // 5. SVG Border
+    document.querySelector('.svg-border-target') && new SvgBorderEffect('.svg-border-target', {
+      color: '#54a0ff',
+      text: 'SVG Border',
+      thickness: '3',
+      duration: '0.8s'
+    });
+
+
+    // --- MORE AWESOME EFFECTS ---
+
+    // 1. Morphing Goo - customized with vibrant pink
+    document.querySelector('.gooey-blobs-target') && new GooeyButtonEffect('.gooey-blobs-target', 'blobs', {
+      color: '#ff3366',
+      hoverColor: '#fff'
+    });
+    document.querySelector('.gooey-diagonal-target') && new GooeyButtonEffect('.gooey-diagonal-target', 'diagonal', {
+      color: '#8b5cf6',
+      hoverColor: '#1a1a1a'
+    });
+
+    // 2. Wave Rising - cyan liquid with dark text on hover
+    document.querySelector('.liquid-fill-target') && new LiquidFillEffect('.liquid-fill-target', {
+      color: '#00d4ff',
+      textColor: '#1a1a1a'
+    });
+
+    // 3. Color Shift - faster animation speed
+    document.querySelector('.rainbow-smooth-target') && new RainbowEffect('.rainbow-smooth-target', 'smooth', { speed: '3s' });
+    document.querySelector('.rainbow-spectrum-target') && new RainbowEffect('.rainbow-spectrum-target', 'spectrum', { speed: '3s' });
+    document.querySelector('.rainbow-warm-target') && new RainbowEffect('.rainbow-warm-target', 'warm', { speed: '3s' });
+    document.querySelector('.rainbow-blocks-target') && new RainbowEffect('.rainbow-blocks-target', 'blocks', { speed: '2.5s' });
+
+    // 4. Sketch Border - purple to blue transition
+    document.querySelector('.draw-border-target') && new DrawBorderEffect('.draw-border-target', {
+      color: '#9b59b6',
+      hoverColor: '#3498db',
+      width: '3px',
+      duration: '0.25s'
+    });
+
+    // 5. Card Flip - custom subscribe text with proper contrast
+    document.querySelector('.flip-button-target') && new FlipButtonEffect('.flip-button-target', {
+      frontText: 'Subscribe',
+      backText: 'Join Us!',
+      frontColor: '#1e293b',
+      backColor: '#f59e0b',
+      textColor: '#fff',
+      duration: '0.6s'
+    });
+
+    // 6. Paint Splash - red and orange variants
+    document.querySelector('.mask-nature-target') && new MaskRevealEffect('.mask-nature-target', 'nature', {
+      color: '#e74c3c',
+      textColor: '#fff',
+      duration: '0.8s'
+    });
+    document.querySelector('.mask-urban-target') && new MaskRevealEffect('.mask-urban-target', 'urban', {
+      color: '#f97316',
+      textColor: '#fff',
+      duration: '0.8s'
+    });
+
+    // 7. Diagonal Slide - dark slate to orange with better contrast
+    document.querySelector('.angled-sweep-target') && new AngledSweepEffect('.angled-sweep-target', {
+      primaryColor: '#2c3e50',
+      secondaryColor: '#e67e22',
+      textColor: '#2c3e50',
+      hoverTextColor: '#1a1a1a',
+      angle: '12deg',
+      duration: '0.25s'
+    });
+
+    // 8. Neon Pulse - darker background
+    document.querySelector('.glow-hover-target') && new GlowHoverEffect('.glow-hover-target', {
+      bg: '#0a0a0a',
+      textColor: '#fff',
+      borderRadius: '8px'
+    });
+
+
+    // --- BASIC EFFECTS ---
+
+    // Navigation links - Underline effect
+    document.querySelectorAll('nav a').forEach(link => {
+      new UnderlineEffect(link, 'slide', {
+        color: '#4ecdc4',
+        thickness: '3px'
+      });
+    });
+
+    // Buttons - Background sweep effect
+    document.querySelectorAll('.btn').forEach(btn => {
+      new BackgroundSweepEffect(btn, 'left', {
+        color: '#ff6b6b'
+      });
+    });
+
+    // Cards - 3D lift effect
+    document.querySelectorAll('.card:not(.tilt-card)').forEach(card => {
+      new Transform3DEffect(card, 'lift', {
+        translateZ: '30px'
+      });
+    });
+
+    // Images - Overlay effect
+    document.querySelectorAll('.image-wrapper').forEach(wrapper => {
+      new ImageOverlayEffect(wrapper, 'fade', {
+        overlayColor: 'rgba(102, 126, 234, 0.7)',
+        zoomScale: '1.15'
+      });
+    });
+
+    // Icons - Rotate effect
+    document.querySelectorAll('.icon').forEach(icon => {
+      new IconEffect(icon, 'rotate', {
+        hoverColor: '#ff6b6b'
+      });
+    });
+
+    // Text effects
+    const textGradient = document.querySelector('.text-gradient');
+    if (textGradient) {
+      new TextEffect(textGradient, 'gradient', {
+        primaryColor: '#667eea',
+        secondaryColor: '#764ba2'
+      });
+    }
+
+    const textNeon = document.querySelector('.text-neon');
+    if (textNeon) {
+      new TextEffect(textNeon, 'neon', {
+        primaryColor: '#4ecdc4'
+      });
+    }
+
+    const textShadow = document.querySelector('.text-shadow');
+    if (textShadow) {
+      new TextEffect(textShadow, 'shadow', {
+        primaryColor: '#667eea',
+        secondaryColor: '#764ba2'
+      });
+    }
+
+    console.log('✨ hover-on-lib loaded successfully!');
+  </script>
+</body>
+
+</html>
