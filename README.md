@@ -393,7 +393,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
-MIT © Union Web Services, Inc.
+MIT
 
 ## 🔗 Links
 
