@@ -9,19 +9,35 @@
  */
 
 // Export all effect classes
-export { GalleryHoverEffect, GalleryHoverOptions } from './effects/gallery-hover';
-export { UnderlineEffect, UnderlineType, UnderlineOptions } from './effects/underline';
-export { BackgroundSweepEffect, SweepType, SweepOptions } from './effects/background-sweep';
-export { BorderEffect, BorderType, BorderOptions } from './effects/border';
-export { Transform3DEffect, Transform3DType, Transform3DOptions } from './effects/transform-3d';
-export { IconEffect, IconEffectType, IconEffectOptions, createSocialIcon } from './effects/icon';
-export { ImageOverlayEffect, OverlayType, OverlayOptions } from './effects/image-overlay';
-export { TextEffect, TextEffectType, TextEffectOptions } from './effects/text';
-export { TextEffect, TextEffectType, TextEffectOptions } from "./effects/text";
+export { GalleryHoverEffect } from './effects/gallery-hover';
+export type { GalleryHoverOptions } from './effects/gallery-hover';
+export { UnderlineEffect } from './effects/underline';
+export type { UnderlineType, UnderlineOptions } from './effects/underline';
+export { BackgroundSweepEffect } from './effects/background-sweep';
+export type { SweepType, SweepOptions } from './effects/background-sweep';
+export { BorderEffect } from './effects/border';
+export type { BorderType, BorderOptions } from './effects/border';
+export { Transform3DEffect } from './effects/transform-3d';
+export type { Transform3DType, Transform3DOptions } from './effects/transform-3d';
+export { IconEffect, createSocialIcon } from './effects/icon';
+export type { IconEffectType, IconEffectOptions } from './effects/icon';
+export { ImageOverlayEffect } from './effects/image-overlay';
+export type { OverlayType, OverlayOptions } from './effects/image-overlay';
+export { TextEffect } from './effects/text';
+export type { TextEffectType, TextEffectOptions } from './effects/text';
+export { AdvancedButtonEffect } from './effects/advanced-button';
+export type { AdvancedButtonType, AdvancedButtonOptions } from './effects/advanced-button';
+export { ModernCSSEffect } from './effects/modern-css';
+export type { ModernEffectType, ModernEffectOptions } from './effects/modern-css';
+export { ClassicEffect } from './effects/classic';
+export type { ClassicEffectType, ClassicEffectOptions } from './effects/classic';
+export { CardEffect } from './effects/card';
+export type { CardEffectType, CardEffectOptions } from './effects/card';
+export { ParticleEffect } from './effects/particle';
+export type { ParticleEffectType, ParticleEffectOptions } from './effects/particle';
 
 // Export organized categories (RECOMMENDED WAY)
 export { Navigation, Buttons, Cards, Images, Text, Icons, Modern, Classic, Presets } from './categories';
-export { CardEffect, CardEffectType, CardEffectOptions } from './effects/card';
 
 // Version
 export const VERSION = '1.0.0';
@@ -31,13 +47,13 @@ export const VERSION = '1.0.0';
  */
 export function initEffects(config: EffectConfig[]): EffectInstance[] {
   const instances: EffectInstance[] = [];
-  
+
   config.forEach(({ selector, effect, type, options }) => {
     const elements = document.querySelectorAll(selector);
-    
+
     elements.forEach((element) => {
       let instance: any;
-      
+
       switch (effect) {
         case 'gallery':
           instance = new GalleryHoverEffect(element as HTMLElement, options);
@@ -70,7 +86,7 @@ export function initEffects(config: EffectConfig[]): EffectInstance[] {
           instance = new CardEffect(element as HTMLElement, type as any, options);
           break;
       }
-      
+
       if (instance) {
         instances.push({
           element: element as HTMLElement,
@@ -81,7 +97,7 @@ export function initEffects(config: EffectConfig[]): EffectInstance[] {
       }
     });
   });
-  
+
   return instances;
 }
 
@@ -126,7 +142,7 @@ export const quickInit = {
       options
     }]);
   },
-  
+
   /**
    * Apply button hover effects
    */
@@ -138,7 +154,7 @@ export const quickInit = {
       options
     }]);
   },
-  
+
   /**
    * Apply 3D effects to cards
    */
@@ -146,92 +162,6 @@ export const quickInit = {
     return initEffects([{
       selector: '.card',
       effect: 'transform3d',
-      type,
-      options
-    }]);
-  },
-  
-  /**
-   * Apply border effects
-   */
-  borders: (type: string = 'draw', selector: string = '.bordered', options?: any) => {
-    return initEffects([{
-      selector,
-      effect: 'border',
-      type,
-      options
-    }]);
-  },
-  
-  /**
-   * Apply icon effects
-   */
-  icons: (type: string = 'glow', selector: string = '.icon', options?: any) => {
-    return initEffects([{
-      selector,
-      effect: 'icon',
-      type,
-      options
-    }]);
-  },
-  
-  /**
-   * Apply social media icons
-   */
-  socialIcons: (selector: string = '.social-icon', options?: any) => {
-    return initEffects([{
-      selector,
-      effect: 'icon',
-      type: 'glow',
-      options
-    }]);
-  },
-  
-  /**
-   * Apply image overlay effects
-   */
-  images: (type: string = 'fade', selector: string = '.hover-image', options?: any) => {
-    return initEffects([{
-      selector,
-      effect: 'image-overlay',
-      type,
-      options
-    }]);
-  },
-  
-  /**
-   * Apply text effects
-   */
-  text: (type: string = 'glow', selector: string = '.hover-text', options?: any) => {
-    return initEffects([{
-      selector,
-      effect: 'text',
-      type,
-      options
-    }]);
-  }
-};
-
-  
-  /**
-   * Apply particle effects
-   */
-  particles: (type: string = 'burst', selector: string = '.particle', options?: any) => {
-    return initEffects([{
-      selector,
-      effect: 'particle',
-      type,
-      options
-    }]);
-  },
-  
-  /**
-   * Apply card effects
-   */
-  cards2: (type: string = 'lift-shadow', selector: string = '.card', options?: any) => {
-    return initEffects([{
-      selector,
-      effect: 'card',
       type,
       options
     }]);
