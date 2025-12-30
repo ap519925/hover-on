@@ -407,4 +407,4 @@ Check out the `/examples` directory for more detailed usage examples and demos.
 
 ---
 
-Made with ❤️ by Union Web Services, Inc.
+
