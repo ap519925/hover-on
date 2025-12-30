@@ -1,6 +1,6 @@
 {
   "name": "hover-on-lib",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "type": "module",
   "description": "A comprehensive library of navigation and button hover effects with framework-agnostic core and integrations for Drupal, React, Vue, and vanilla JS",
   "main": "dist/index.js",
