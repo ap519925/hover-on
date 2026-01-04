@@ -10,7 +10,27 @@ npm install hover-on-lib
 
 ## 📖 Quick Start
 
-### Vanilla JavaScript
+### Automatic Initialization via CSS Classes (New in v1.4.0)
+
+You can now apply hover effects simply by adding a class to your HTML elements. No JavaScript code required!
+
+Just use the class format: `hover-on-[effect]-[type]` or `hover-on-[effect]` for single-type effects.
+
+```html
+<!-- Simple Effects -->
+<button class="hover-on-glow">Glow Button</button>
+<button class="hover-on-squishy">Squishy Button</button>
+
+<!-- Typed Effects -->
+<a href="#" class="hover-on-underline-slide">Slide Underline</a>
+<div class="hover-on-card-lift">Lift Card</div>
+<div class="hover-on-modern-glass">Glass Effect</div>
+<div class="hover-on-border-draw">Draw Border</div>
+```
+
+The library automatically observes the DOM, so these classes work on both static and dynamically added elements.
+
+### Vanilla JavaScript (Manual Initialization)
 
 ```javascript
 import { UnderlineEffect, BackgroundSweepEffect, Transform3DEffect } from 'hover-on-lib';

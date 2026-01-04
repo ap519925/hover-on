@@ -39,9 +39,152 @@ import { StylishButtonEffect } from './effects/stylish-buttons';
 import { CssButtonEffect } from './effects/css-buttons';
 import { LiquidFillEffect } from './effects/liquid-fill';
 
-// Helper to init all
+// Configuration for all effects
+// Defines the class reference and whether it requires a 'type' argument
+const EFFECT_CONFIGS: Record<string, { class: any, hasType: boolean }> = {
+  // Multi-type effects (constructor: element, type, options)
+  'classic': { class: ClassicEffect, hasType: true },
+  'modern': { class: ModernCSSEffect, hasType: true },
+  'card': { class: CardEffect, hasType: true },
+  'border': { class: BorderEffect, hasType: true },
+  'text': { class: TextEffect, hasType: true },
+  'icon': { class: IconEffect, hasType: true },
+  'transform3d': { class: Transform3DEffect, hasType: true },
+  'particle': { class: ParticleEffect, hasType: true },
+  'gallery': { class: GalleryHoverEffect, hasType: true },
+  'imageoverlay': { class: ImageOverlayEffect, hasType: true },
+  'background': { class: BackgroundSweepEffect, hasType: true },
+  'underline': { class: UnderlineEffect, hasType: true },
+  'advanced': { class: AdvancedButtonEffect, hasType: true },
+
+  // Single-type effects (constructor: element, options)
+  'squishy': { class: SquishyButtonEffect, hasType: false },
+  'complexborder': { class: ComplexBorderEffect, hasType: false },
+  'angled': { class: AngledSweepEffect, hasType: false },
+  'arrow': { class: ArrowSlideEffect, hasType: false },
+  'rainbow': { class: RainbowEffect, hasType: false },
+  'mask': { class: MaskRevealEffect, hasType: false },
+  'drawborder': { class: DrawBorderEffect, hasType: false },
+  'flip': { class: FlipButtonEffect, hasType: false },
+  'boxshadow': { class: BoxShadowEffect, hasType: false },
+  'fizzy': { class: FizzyButtonEffect, hasType: false },
+  'svgborder': { class: SvgBorderEffect, hasType: false },
+  'stripe': { class: StripeButtonEffect, hasType: false },
+  'gooey': { class: GooeyButtonEffect, hasType: false },
+  'fancyborder': { class: FancyBorderEffect, hasType: false },
+  'svgoval': { class: SvgOvalEffect, hasType: false },
+  'blend': { class: BlendModeEffect, hasType: false },
+  'slidegrow': { class: SlideGrowEffect, hasType: false },
+  'glow': { class: GlowHoverEffect, hasType: false },
+  'borderfill': { class: BorderFillEffect, hasType: false },
+  'transition': { class: TransitionButtonEffect, hasType: false },
+  'centerfill': { class: CenterFillEffect, hasType: false },
+  'bubblearrow': { class: BubbleArrowEffect, hasType: false },
+  'stylish': { class: StylishButtonEffect, hasType: false },
+  'cssbutton': { class: CssButtonEffect, hasType: false },
+  'liquid': { class: LiquidFillEffect, hasType: false },
+};
+
+/**
+ * Automatically initializes effects based on CSS classes.
+ * Looks for classes in the format: .hover-on-{effectName}[-{type}]
+ * Example: .hover-on-glow, .hover-on-classic-fade
+ */
+const autoInit = () => {
+  // Helper to process a single element
+  const processElement = (el: Element) => {
+    if (el.hasAttribute('data-hover-on-initialized')) return;
+
+    el.classList.forEach((cls) => {
+      if (!cls.startsWith('hover-on-')) return;
+
+      const remaining = cls.substring('hover-on-'.length);
+      // Try exact match first (e.g. 'glow')
+      let effectKey = remaining;
+      let type: string | undefined = undefined;
+
+      if (!EFFECT_CONFIGS[effectKey]) {
+        // Try to split hyphenated names to find effect and type
+        // e.g. 'classic-fade' -> effect: 'classic', type: 'fade'
+        const parts = remaining.split('-');
+        // We iterate from the end to support multi-word effect names if any exist
+        // But simplified: assume effect is first part, type is rest?
+        // Actually some effects might have hyphens.
+        // Let's iterate keys to find a match at the start.
+        const matchingKey = Object.keys(EFFECT_CONFIGS).find(key => remaining.startsWith(key + '-'));
+
+        if (matchingKey) {
+          effectKey = matchingKey;
+          type = remaining.substring(matchingKey.length + 1);
+        }
+      }
+
+      const config = EFFECT_CONFIGS[effectKey];
+      if (config) {
+        try {
+          if (config.hasType && type) {
+            new config.class(el as HTMLElement, type);
+          } else if (config.hasType && !type) {
+            // If effect expects type but none provided, use default (by passing undefined or empty?)
+            // Most effects default their type in constructor, so we can pass undefined or just initialized without type arg if possible.
+            // But constructor signatures vary. Safer to let constructor default.
+            new config.class(el as HTMLElement);
+          } else {
+            // Single type effect
+            new config.class(el as HTMLElement);
+          }
+          el.setAttribute('data-hover-on-initialized', 'true');
+          // Stop processing other classes for this element to avoids conflicts? 
+          // Or allow multiple effects? Allowing multiple might be cool.
+        } catch (e) {
+          console.error(`Error auto-initializing effect ${effectKey} on`, el, e);
+        }
+      }
+    });
+  };
+
+  // Process existing elements
+  document.querySelectorAll('[class*="hover-on-"]').forEach(processElement);
+
+  // Watch for new elements
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (node instanceof HTMLElement) {
+          if (node.matches('[class*="hover-on-"]')) {
+            processElement(node);
+          }
+          // Also check children
+          node.querySelectorAll('[class*="hover-on-"]').forEach(processElement);
+        }
+      });
+
+      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        if (mutation.target instanceof HTMLElement) {
+          processElement(mutation.target);
+        }
+      }
+    });
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['class']
+  });
+};
+
+// Helper to init all - now calls autoInit
 const quickInit = () => {
   console.log('hover-on library loaded');
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', autoInit);
+    } else {
+      autoInit();
+    }
+  }
 };
 
 // Helper for Drupal integration - init effects from config rules
@@ -50,15 +193,19 @@ const initEffects = (rules: EffectRule[]) => {
     const elements = document.querySelectorAll(rule.selector);
     if (!elements.length) return;
 
-    const effectClass = getEffectClass(rule.effect);
-    if (!effectClass) {
+    const config = EFFECT_CONFIGS[rule.effect.toLowerCase()];
+    if (!config) {
       console.warn(`Unknown effect: ${rule.effect}`);
       return;
     }
 
     elements.forEach((el) => {
       try {
-        new effectClass(el as HTMLElement, rule.type || '', rule.options || {});
+        if (config.hasType) {
+          new config.class(el as HTMLElement, rule.type || undefined, rule.options || {});
+        } else {
+          new config.class(el as HTMLElement, rule.options || {});
+        }
       } catch (e) {
         console.error(`Error initializing effect ${rule.effect} on`, el, e);
       }
@@ -66,52 +213,9 @@ const initEffects = (rules: EffectRule[]) => {
   });
 };
 
-// Map effect names to classes
+// Map effect names to classes (Deprecated but kept for compatibility if used externally)
 const getEffectClass = (effectName: string): any => {
-  const effectMap: { [key: string]: any } = {
-    'underline': UnderlineEffect,
-    'background': BackgroundSweepEffect,
-    'border': BorderEffect,
-    'transform3d': Transform3DEffect,
-    'icon': IconEffect,
-    'text': TextEffect,
-    'modern': ModernCSSEffect,
-    'particle': ParticleEffect,
-    'card': CardEffect,
-    'classic': ClassicEffect,
-    'advanced': AdvancedButtonEffect,
-    'gallery': GalleryHoverEffect,
-    'imageoverlay': ImageOverlayEffect,
-
-    // New effects
-    'squishy': SquishyButtonEffect,
-    'complexborder': ComplexBorderEffect,
-    'angled': AngledSweepEffect,
-    'arrow': ArrowSlideEffect,
-    'rainbow': RainbowEffect,
-    'mask': MaskRevealEffect,
-    'drawborder': DrawBorderEffect,
-    'flip': FlipButtonEffect,
-    'boxshadow': BoxShadowEffect,
-    'fizzy': FizzyButtonEffect,
-    'svgborder': SvgBorderEffect,
-    'stripe': StripeButtonEffect,
-    'gooey': GooeyButtonEffect,
-    'fancyborder': FancyBorderEffect,
-    'svgoval': SvgOvalEffect,
-    'blend': BlendModeEffect,
-    'slidegrow': SlideGrowEffect,
-    'glow': GlowHoverEffect,
-    'borderfill': BorderFillEffect,
-    'transition': TransitionButtonEffect,
-    'centerfill': CenterFillEffect,
-    'bubblearrow': BubbleArrowEffect,
-    'stylish': StylishButtonEffect,
-    'cssbutton': CssButtonEffect,
-    'liquid': LiquidFillEffect,
-  };
-
-  return effectMap[effectName.toLowerCase()];
+  return EFFECT_CONFIGS[effectName.toLowerCase()]?.class;
 };
 
 // Type for Drupal effect rules
@@ -166,12 +270,14 @@ export {
   LiquidFillEffect,
 
   quickInit,
-  initEffects
+  initEffects,
+  autoInit // Export the new function
 };
 
 // Default export
 export default {
   init: quickInit,
+  autoInit,
   ModernCSSEffect,
   CardEffect,
   ClassicEffect,

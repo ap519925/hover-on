@@ -1,6 +1,6 @@
 {
   "name": "hover-on-lib",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "type": "module",
   "description": "A comprehensive library of 30+ navigation and button hover effects including gooey morphing, liquid fills, rainbow gradients, paint splash reveals, and more. Framework-agnostic with Drupal integration.",
   "main": "dist/index.js",
